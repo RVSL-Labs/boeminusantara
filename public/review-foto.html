@@ -1,0 +1,1575 @@
+<title>Boemi Nusantara — Persetujuan Foto Katalog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<style>
+*{box-sizing:border-box}
+:root{
+ --navy:#13294d;--navy2:#1e3c6e;--red:#cf3a24;--gold:#c19a3e;
+ --bg:#f4f3ef;--card:#fff;--ink:#191b21;--mut:#5c6474;--line:#e6e3dc;
+ --green:#2c7a51;--shadow:0 1px 2px rgba(19,41,77,.05),0 6px 20px rgba(19,41,77,.07)}
+@media (prefers-color-scheme:dark){:root{--bg:#0d1320;--card:#151d2c;--ink:#e9ebf1;--mut:#95a0b4;--line:#242f40;--navy:#a6c4f4;--navy2:#c9dcf8;--green:#5bc98c;--gold:#d7b466;--red:#f0765c;--shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.4)}}
+:root[data-theme=dark]{--bg:#0d1320;--card:#151d2c;--ink:#e9ebf1;--mut:#95a0b4;--line:#242f40;--navy:#a6c4f4;--navy2:#c9dcf8;--green:#5bc98c;--gold:#d7b466;--red:#f0765c;--shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.4)}
+:root[data-theme=light]{--bg:#f4f3ef;--card:#fff;--ink:#191b21;--mut:#5c6474;--line:#e6e3dc;--navy:#13294d;--navy2:#1e3c6e;--green:#2c7a51;--gold:#c19a3e;--red:#cf3a24;--shadow:0 1px 2px rgba(19,41,77,.05),0 6px 20px rgba(19,41,77,.07)}
+html{color-scheme:light dark}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.5;padding-bottom:92px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 22px}
+.top{background:var(--navy);color:#fff}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;padding:16px 22px}
+.brand{display:flex;align-items:center;gap:12px}
+.mark{width:38px;height:38px;border-radius:9px;background:linear-gradient(135deg,var(--gold),#a97f24);color:var(--navy);font-weight:800;font-size:22px;display:flex;align-items:center;justify-content:center;box-shadow:inset 0 0 0 1px rgba(255,255,255,.25)}
+.bn{display:block;font-weight:800;letter-spacing:.06em;font-size:15px}
+.bs{display:block;font-size:11px;opacity:.75;letter-spacing:.02em}
+.tag{font-size:11px;text-transform:uppercase;letter-spacing:.16em;color:var(--gold);font-weight:700}
+.intro{background:var(--card);border-bottom:1px solid var(--line)}
+.intro .wrap{padding:26px 22px 20px}
+h1{font-size:clamp(22px,3vw,30px);margin:0 0 .3em;letter-spacing:-.02em;text-wrap:balance}
+.lede{color:var(--mut);max-width:76ch;margin:0}
+.lede b{color:var(--ink)}
+.who{margin:18px 0 4px}
+.who label{font-size:13px;font-weight:600;color:var(--mut);display:flex;flex-direction:column;gap:6px;max-width:440px}
+.who input{border:1px solid var(--line);border-radius:9px;background:var(--bg);color:var(--ink);padding:10px 12px;font-size:14px}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.fbtn{border:1px solid var(--line);background:var(--card);color:var(--mut);border-radius:20px;padding:6px 14px;font-size:13px;font-weight:600;cursor:pointer}
+.fbtn.is-on{background:var(--navy);color:#fff;border-color:var(--navy)}
+:root[data-theme=dark] .fbtn.is-on{color:#0d1320}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px;padding:24px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
+.card.rev{border-color:var(--red)}
+.cbody{padding:14px 14px 0}
+.imgs{display:flex;gap:12px;align-items:flex-start}
+.imgs figure{margin:0;text-align:center}
+.now{flex:0 0 auto}
+.new{flex:1 1 auto}
+.fr{background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden;display:flex;align-items:center;justify-content:center;aspect-ratio:1/1}
+.fr.sm{width:74px}
+.new .fr{width:100%;min-height:170px}
+.fr img{width:100%;height:100%;object-fit:contain;display:block}
+.ph{color:var(--mut);font-size:24px}
+figcaption{font-size:10.5px;color:var(--mut);margin-top:5px;text-transform:uppercase;letter-spacing:.05em}
+.new figcaption{color:var(--green);font-weight:700}
+.meta{padding:12px 0 2px}
+.cat{font-size:11px;color:var(--gold);font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.meta h3{font-size:14px;margin:3px 0 0;font-weight:650;line-height:1.35}
+.ctl{padding:12px 14px 14px;margin-top:auto;display:flex;flex-direction:column;gap:9px}
+.seg{display:flex;gap:6px;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:4px}
+.opt{flex:1;border:0;background:transparent;color:var(--mut);font-size:13px;font-weight:700;padding:9px;border-radius:7px;cursor:pointer}
+.opt.setuju.is-on{background:var(--green);color:#fff}
+.opt.revisi.is-on{background:var(--red);color:#fff}
+.cmt{border:1px solid var(--line);border-radius:9px;background:var(--bg);color:var(--ink);padding:9px 11px;font-size:13px}
+.bar{position:fixed;left:0;right:0;bottom:0;background:color-mix(in srgb,var(--card) 93%,transparent);backdrop-filter:blur(9px);border-top:1px solid var(--line);z-index:30}
+.barin{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 22px}
+.tally{display:flex;gap:16px;font-size:14px;color:var(--mut);font-variant-numeric:tabular-nums}
+.tally b{font-size:18px}.tk b{color:var(--green)}.tr b{color:var(--red)}
+#send{background:var(--navy);color:#fff;border:0;border-radius:11px;padding:12px 22px;font-size:15px;font-weight:750;cursor:pointer;box-shadow:var(--shadow)}
+:root[data-theme=dark] #send{color:#0d1320}
+#send:hover{background:var(--navy2)}
+#send:focus-visible,.opt:focus-visible,.fbtn:focus-visible,#copy:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.modal{position:fixed;inset:0;background:rgba(10,16,26,.55);display:flex;align-items:center;justify-content:center;padding:20px;z-index:50}
+.sheet{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);max-width:560px;width:100%;padding:24px;position:relative}
+.sheet h2{margin:0 0 4px;font-size:20px}
+.msub{color:var(--mut);font-size:13px;margin:0 0 14px}
+.x{position:absolute;top:14px;right:14px;border:0;background:var(--bg);color:var(--mut);width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:15px}
+#sum{width:100%;height:190px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font-family:ui-monospace,Consolas,monospace;font-size:12.5px;padding:12px;line-height:1.5;resize:vertical}
+.mbtns{display:flex;gap:10px;margin-top:14px}
+#copy,.mailbtn{flex:1;text-align:center;border-radius:10px;padding:11px;font-size:14px;font-weight:700;cursor:pointer;text-decoration:none}
+#copy{background:var(--navy);color:#fff;border:0}
+:root[data-theme=dark] #copy{color:#0d1320}
+.mailbtn{background:var(--bg);color:var(--navy);border:1px solid var(--line)}
+.okmsg{display:block;margin-top:10px;color:var(--green);font-weight:700;font-size:13px}
+.sendstat{font-size:14px;font-weight:700;padding:9px 12px;border-radius:9px;margin:2px 0 12px}
+.sendstat.sending{background:color-mix(in srgb,var(--navy) 10%,transparent);color:var(--navy)}
+.sendstat.ok{background:color-mix(in srgb,var(--green) 14%,transparent);color:var(--green)}
+.sendstat.err{background:color-mix(in srgb,var(--red) 12%,transparent);color:var(--red)}
+@media (max-width:560px){.tag{display:none}.grid{grid-template-columns:1fr 1fr}}
+@media (max-width:400px){.grid{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<header class="top"><div class="wrap">
+  <div class="brand"><span class="mark">B</span><div><span class="bn">BOEMI NUSANTARA</span><span class="bs">Alat &amp; Perlengkapan Praktik SMK</span></div></div>
+  <span class="tag">Persetujuan Foto Katalog</span></div></header>
+<section class="intro"><div class="wrap">
+ <h1>Usulan pembaruan foto produk</h1>
+ <p class="lede">Bapak/Ibu, berikut <b>141 usulan foto baru</b> untuk katalog <b>boeminusantara.com</b> — beresolusi lebih tinggi &amp; latar bersih, menggantikan foto lama yang buram. Mohon ditinjau: pilih <b>Setuju</b> bila cocok, atau <b>Revisi</b> bila perlu diganti (boleh kasih catatan). Setelah selesai, klik <b>Kirim persetujuan</b> di bawah.</p>
+ <div class="who"><label>Nama / Instansi peninjau <input id="who" type="text" placeholder="mis. PT Boemi Nusantara — Bpk. …"></label></div>
+ <div class="filters"><button type="button" class="fbtn is-on" data-cat="all">Semua (141)</button><button type="button" class="fbtn" data-cat="tav">Teknik Audio Video</button><button type="button" class="fbtn" data-cat="titl">Teknik Instalasi Tenaga Listrik</button><button type="button" class="fbtn" data-cat="tkro">Teknik Kendaraan Ringan</button><button type="button" class="fbtn" data-cat="toi">Teknik Otomasi Industri</button></div>
+</div></section>
+<main class="wrap"><div class="grid"><article class="card" data-id="tav-003" data-name="AC DC Training System">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/ac-dc-training-system-3.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tav-003.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Audio Video</span><h3>AC DC Training System</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan AC DC Training System">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tav-004" data-name="Aplikasi PLC pada Mekanikal DC Motor">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/aplikasi-plc-pada-mekanikal-dc-motor-4.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tav-004.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Audio Video</span><h3>Aplikasi PLC pada Mekanikal DC Motor</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Aplikasi PLC pada Mekanikal DC Motor">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tav-005" data-name="Basic Electronic Trainer">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/basic-electronic-trainer-5.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tav-005.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Audio Video</span><h3>Basic Electronic Trainer</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Basic Electronic Trainer">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tav-006" data-name="(Variable Speed Drive (VSD) Training System">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/variable-speed-drive-vsd-training-system-6.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tav-006.png" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Audio Video</span><h3>(Variable Speed Drive (VSD) Training System</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan (Variable Speed Drive (VSD) Training System">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tav-007" data-name="Aplikasi PLC pada Traffic Light">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/aplikasi-plc-pada-traffic-light-7.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tav-007.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Audio Video</span><h3>Aplikasi PLC pada Traffic Light</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Aplikasi PLC pada Traffic Light">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tav-008" data-name="Aplikasi Sensor Suhu, Aliran, Tekanan dan Leve">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/aplikasi-sensor-suhu-aliran-tekanan-dan-leve-8.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tav-008.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Audio Video</span><h3>Aplikasi Sensor Suhu, Aliran, Tekanan dan Leve</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Aplikasi Sensor Suhu, Aliran, Tekanan dan Leve">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tav-009" data-name="Basic Level: Mobile Hydraulics -Working Hydraulics">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/basic-level-mobile-hydraulics--working-hydraulics-9.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tav-009.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Audio Video</span><h3>Basic Level: Mobile Hydraulics -Working Hydraulics</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Basic Level: Mobile Hydraulics -Working Hydraulics">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tav-010" data-name="Basic Principal of Digital technology &amp; electronics">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/basic-principal-of-digital-technology-electronics-10.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tav-010.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Audio Video</span><h3>Basic Principal of Digital technology &amp; electronics</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Basic Principal of Digital technology &amp; electronics">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tav-011" data-name="Belt-Dive Training Equipment">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/belt-dive-training-equipment-11.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tav-011.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Audio Video</span><h3>Belt-Dive Training Equipment</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Belt-Dive Training Equipment">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tav-012" data-name="Digital Circuit Training Kit">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/digital-circuit-training-kit-12.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tav-012.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Audio Video</span><h3>Digital Circuit Training Kit</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Digital Circuit Training Kit">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tav-013" data-name="Electronic Skills and PCB Production Process Training Device">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/electronic-skills-and-pcb-production-process-training-device-13.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tav-013.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Audio Video</span><h3>Electronic Skills and PCB Production Process Training Device</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Electronic Skills and PCB Production Process Training Device">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tav-014" data-name="Elektronika &amp; Digital Trainer">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/elektronika-digital-trainer-14.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tav-014.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Audio Video</span><h3>Elektronika &amp; Digital Trainer</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Elektronika &amp; Digital Trainer">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tav-015" data-name="Equipment PLC to Electro Pneumatic Training System">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/equipment-plc-to-electro-pneumatic-training-system-15.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tav-015.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Audio Video</span><h3>Equipment PLC to Electro Pneumatic Training System</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Equipment PLC to Electro Pneumatic Training System">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tav-016" data-name="Frequency Control Speed Regulation Experiment System">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/frequency-control-speed-regulation-experiment-system-16.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tav-016.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Audio Video</span><h3>Frequency Control Speed Regulation Experiment System</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Frequency Control Speed Regulation Experiment System">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tav-018" data-name="Industrial Motor and Transformer Training System">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/industrial-motor-and-transformer-training-system-18.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tav-018.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Audio Video</span><h3>Industrial Motor and Transformer Training System</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Industrial Motor and Transformer Training System">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tav-019" data-name="Instalasi Tenaga Listrik dengan Panel">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/instalasi-tenaga-listrik-dengan-panel-19.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tav-019.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Audio Video</span><h3>Instalasi Tenaga Listrik dengan Panel</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Instalasi Tenaga Listrik dengan Panel">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tav-020" data-name="IoT Trainer">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/iot-trainer-20.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tav-020.png" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Audio Video</span><h3>IoT Trainer</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan IoT Trainer">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tav-021" data-name="Liquid Mix Training Set">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/liquid-mix-training-set-21.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tav-021.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Audio Video</span><h3>Liquid Mix Training Set</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Liquid Mix Training Set">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tav-022" data-name="Microcontroller Trainer">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/microcontroller-trainer-22.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tav-022.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Audio Video</span><h3>Microcontroller Trainer</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Microcontroller Trainer">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tav-024" data-name="Motor and Transformer Maintenance and Test Training System">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/motor-and-transformer-maintenance-and-test-training-system-24.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tav-024.png" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Audio Video</span><h3>Motor and Transformer Maintenance and Test Training System</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Motor and Transformer Maintenance and Test Training System">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tav-025" data-name="Portable Solar Power Experiment Box">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/portable-solar-power-experiment-box-25.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tav-025.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Audio Video</span><h3>Portable Solar Power Experiment Box</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Portable Solar Power Experiment Box">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tav-026" data-name="Programmable Logic Controller Training Set">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/programmable-logic-controller-training-set-26.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tav-026.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Audio Video</span><h3>Programmable Logic Controller Training Set</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Programmable Logic Controller Training Set">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tav-027" data-name="Proximity Sensor Training Set">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/proximity-sensor-training-set-27.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tav-027.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Audio Video</span><h3>Proximity Sensor Training Set</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Proximity Sensor Training Set">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tav-028" data-name="Residential and Building Inteligent Control System">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/residential-and-building-inteligent-control-system-28.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tav-028.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Audio Video</span><h3>Residential and Building Inteligent Control System</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Residential and Building Inteligent Control System">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tav-030" data-name="Basic Pneumatic Training System">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/basic-pneumatic-training-system-30.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tav-030.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Audio Video</span><h3>Basic Pneumatic Training System</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Basic Pneumatic Training System">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tav-031" data-name="Basic Electro Pneumatic Training System">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/basic-electro-pneumatic-training-system-31.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tav-031.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Audio Video</span><h3>Basic Electro Pneumatic Training System</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Basic Electro Pneumatic Training System">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tav-032" data-name="Basic Hydraulic Training System">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/basic-hydraulic-training-system-32.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tav-032.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Audio Video</span><h3>Basic Hydraulic Training System</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Basic Hydraulic Training System">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tav-035" data-name="Basic Digital Trainer">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/basic-digital-trainer-35.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tav-035.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Audio Video</span><h3>Basic Digital Trainer</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Basic Digital Trainer">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tav-036" data-name="Electric Instalation Trainer">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/electric-instalation-trainer-36.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tav-036.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Audio Video</span><h3>Electric Instalation Trainer</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Electric Instalation Trainer">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tav-038" data-name="CCTV Security System TrainIng KIT">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/cctv-security-system-training-kit-38.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tav-038.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Audio Video</span><h3>CCTV Security System TrainIng KIT</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan CCTV Security System TrainIng KIT">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tav-040" data-name="Electronic Skills and PCB Production Process Training Device">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/electronic-skills-and-pcb-production-process-training-device-40.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tav-040.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Audio Video</span><h3>Electronic Skills and PCB Production Process Training Device</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Electronic Skills and PCB Production Process Training Device">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tav-041" data-name="FM Transceiver Trainer">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/fm-transceiver-trainer-41.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tav-041.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Audio Video</span><h3>FM Transceiver Trainer</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan FM Transceiver Trainer">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tav-042" data-name="HMI/ SCADA Training System">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/hmi-scada-training-system-42.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tav-042.png" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Audio Video</span><h3>HMI/ SCADA Training System</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan HMI/ SCADA Training System">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tav-043" data-name="MCU Training Set">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/mcu-training-set-43.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tav-043.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Audio Video</span><h3>MCU Training Set</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan MCU Training Set">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tav-044" data-name="MCU Experiment Box">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/mcu-experiment-box-44.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tav-044.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Audio Video</span><h3>MCU Experiment Box</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan MCU Experiment Box">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tav-045" data-name="Optical Electromechanical Integration Training Equipment)">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/optical-electromechanical-integration-training-equipment-45.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tav-045.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Audio Video</span><h3>Optical Electromechanical Integration Training Equipment)</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Optical Electromechanical Integration Training Equipment)">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tav-046" data-name="PLC dan HMI Trainer">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/plc-dan-hmi-trainer-46.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tav-046.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Audio Video</span><h3>PLC dan HMI Trainer</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan PLC dan HMI Trainer">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tav-047" data-name="CCTV Security System TrainIng KIT">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/cctv-security-system-training-kit-47.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tav-047.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Audio Video</span><h3>CCTV Security System TrainIng KIT</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan CCTV Security System TrainIng KIT">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tav-048" data-name="Trainer Solar Panel">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/trainer-solar-panel-48.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tav-048.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Audio Video</span><h3>Trainer Solar Panel</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Trainer Solar Panel">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tav-049" data-name="CCTV Security System TrainIng KIT">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/cctv-security-system-training-kit-49.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tav-049.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Audio Video</span><h3>CCTV Security System TrainIng KIT</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan CCTV Security System TrainIng KIT">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tav-050" data-name="Videotron Trainer">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/videotron-trainer-50.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tav-050.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Audio Video</span><h3>Videotron Trainer</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Videotron Trainer">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="titl-001" data-name="AC DC Training System. Teknik Instalasi Tenaga Listrik">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/ac-dc-training-system-teknik-instalasi-tenaga-listrik-1.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/titl-001.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Instalasi Tenaga Listrik</span><h3>AC DC Training System. Teknik Instalasi Tenaga Listrik</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan AC DC Training System. Teknik Instalasi Tenaga Listrik">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-002" data-name="Penyangga Mesin Diesel (Mesin hidup) (Diesel Engine Stand (Life Engine)">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/penyangga-mesin-diesel-mesin-hidup-diesel-engine-stand-life--2.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-002.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Penyangga Mesin Diesel (Mesin hidup) (Diesel Engine Stand (Life Engine)</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Penyangga Mesin Diesel (Mesin hidup) (Diesel Engine Stand (Life Engine)">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-004" data-name="Gasoline Emission Analyzer">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/gasoline-emission-analyzer-4.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-004.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Gasoline Emission Analyzer</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Gasoline Emission Analyzer">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-005" data-name="Diesel Smokemeter">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/diesel-smokemeter-5.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-005.png" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Diesel Smokemeter</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Diesel Smokemeter">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-006" data-name="Kompresor udara (Air Compressor)">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/kompresor-udara-air-compressor-6.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-006.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Kompresor udara (Air Compressor)</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Kompresor udara (Air Compressor)">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-008" data-name="Penguji dan Penganalisis Pembersih Injektor (Injector Cleaner Tester and Analyzer)">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/penguji-dan-penganalisis-pembersih-injektor-injector-cleaner-8.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-008.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Penguji dan Penganalisis Pembersih Injektor (Injector Cleaner Tester and Analyzer)</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Penguji dan Penganalisis Pembersih Injektor (Injector Cleaner Tester and Analyzer)">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-012" data-name="Standar Mechanical Tool Set">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/standar-mechanical-tool-set-12.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-012.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Standar Mechanical Tool Set</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Standar Mechanical Tool Set">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-013" data-name="Vehicle Mechanical Tool Set">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/vehicle-mechanical-tool-set-13.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-013.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Vehicle Mechanical Tool Set</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Vehicle Mechanical Tool Set">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-014" data-name="Heavy Dutty Hydraulic Press">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/heavy-dutty-hydraulic-press-14.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-014.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Heavy Dutty Hydraulic Press</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Heavy Dutty Hydraulic Press">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-016" data-name="Penyeimbang Roda (Wheel Balancer)">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/penyeimbang-roda-wheel-balancer-16.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-016.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Penyeimbang Roda (Wheel Balancer)</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Penyeimbang Roda (Wheel Balancer)">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-017" data-name="Penjajaran Roda 3D (3D Wheel Alignment)">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/penjajaran-roda-3d-3d-wheel-alignment-17.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-017.png" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Penjajaran Roda 3D (3D Wheel Alignment)</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Penjajaran Roda 3D (3D Wheel Alignment)">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-018" data-name="Pengganti Ban (Tyre Changer)">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/pengganti-ban-tyre-changer-18.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-018.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Pengganti Ban (Tyre Changer)</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Pengganti Ban (Tyre Changer)">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-019" data-name="Four Post Lift Alignment">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/four-post-lift-alignment-19.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-019.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Four Post Lift Alignment</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Four Post Lift Alignment">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-025" data-name="DLI Ignition System Trainer">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/dli-ignition-system-trainer-25.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-025.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>DLI Ignition System Trainer</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan DLI Ignition System Trainer">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-027" data-name="Simulator Sistem Pendingin Udara Otomotif (Automotive Air Conditioning System Simulator)">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/simulator-sistem-pendingin-udara-otomotif-automotive-air-con-27.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-027.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Simulator Sistem Pendingin Udara Otomotif (Automotive Air Conditioning System Simulator)</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Simulator Sistem Pendingin Udara Otomotif (Automotive Air Conditioning System Simulator)">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-028" data-name="Mesin Derek (Engine Crane)">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/mesin-derek-engine-crane-28.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-028.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Mesin Derek (Engine Crane)</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Mesin Derek (Engine Crane)">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-029" data-name="Alignment Scissor Car Lift">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/alignment-scissor-car-lift-29.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-029.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Alignment Scissor Car Lift</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Alignment Scissor Car Lift">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-030" data-name="Bubut Rem Drum dan Disk (Brake Drum and Disk Lathe)">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/bubut-rem-drum-dan-disk-brake-drum-and-disk-lathe-30.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-030.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Bubut Rem Drum dan Disk (Brake Drum and Disk Lathe)</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Bubut Rem Drum dan Disk (Brake Drum and Disk Lathe)">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-031" data-name="Simulator Diagnosis Kesalahan Mesin Otomotif dengan Kesalahan Otomatis (Automotive Engine Fault Diagnosis Simulator with Auto Fault">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/simulator-diagnosis-kesalahan-mesin-otomotif-dengan-kesalaha-31.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-031.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Simulator Diagnosis Kesalahan Mesin Otomotif dengan Kesalahan Otomatis (Automotive Engine Fault Diagnosis Simulator with Auto Fault</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Simulator Diagnosis Kesalahan Mesin Otomotif dengan Kesalahan Otomatis (Automotive Engine Fault Diagnosis Simulator with Auto Fault">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-033" data-name="Peralatan Pelatihan Struktur Mesin Jenis Karburator (Engine Structure Training Equipment Carburetor Type)">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/peralatan-pelatihan-struktur-mesin-jenis-karburator-engine-s-33.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-033.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Peralatan Pelatihan Struktur Mesin Jenis Karburator (Engine Structure Training Equipment Carburetor Type)</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Peralatan Pelatihan Struktur Mesin Jenis Karburator (Engine Structure Training Equipment Carburetor Type)">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-034" data-name="CRDI Diesel Engine Fault Diagnosis Training Equipment">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/crdi-diesel-engine-fault-diagnosis-training-equipment-34.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-034.png" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>CRDI Diesel Engine Fault Diagnosis Training Equipment</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan CRDI Diesel Engine Fault Diagnosis Training Equipment">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-035" data-name="Diesel Engine Diagnosis Training Equipment">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/diesel-engine-diagnosis-training-equipment-35.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-035.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Diesel Engine Diagnosis Training Equipment</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Diesel Engine Diagnosis Training Equipment">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-036" data-name="Peralatan Pelatihan Struktur Mesin Jenis Injeksi Bahan Bakar (Engine Structure Training Equipment Fuel Injection Type)">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/peralatan-pelatihan-struktur-mesin-jenis-injeksi-bahan-bakar-36.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-036.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Peralatan Pelatihan Struktur Mesin Jenis Injeksi Bahan Bakar (Engine Structure Training Equipment Fuel Injection Type)</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Peralatan Pelatihan Struktur Mesin Jenis Injeksi Bahan Bakar (Engine Structure Training Equipment Fuel Injection Type)">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-037" data-name="Fuel Injection Management System Simulator">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/fuel-injection-management-system-simulator-37.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-037.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Fuel Injection Management System Simulator</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Fuel Injection Management System Simulator">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-038" data-name="Gasoline Compression Tester">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/gasoline-compression-tester-38.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-038.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Gasoline Compression Tester</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Gasoline Compression Tester">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-039" data-name="Fuel Injection Pressure Tester Gauge Kit">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/fuel-injection-pressure-tester-gauge-kit-39.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-039.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Fuel Injection Pressure Tester Gauge Kit</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Fuel Injection Pressure Tester Gauge Kit">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-040" data-name="Transmission and Engine Oil Pressure Tester">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/transmission-and-engine-oil-pressure-tester-40.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-040.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Transmission and Engine Oil Pressure Tester</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Transmission and Engine Oil Pressure Tester">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-041" data-name="Radiator Pressure Tester">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/radiator-pressure-tester-41.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-041.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Radiator Pressure Tester</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Radiator Pressure Tester">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-042" data-name="Valve Spring Compressor">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/valve-spring-compressor-42.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-042.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Valve Spring Compressor</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Valve Spring Compressor">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-043" data-name="Outside Micrometer">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/outside-micrometer-43.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-043.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Outside Micrometer</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Outside Micrometer">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-044" data-name="Cylinder/Bore Gauge">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/cylinder-bore-gauge-44.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-044.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Cylinder/Bore Gauge</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Cylinder/Bore Gauge">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-045" data-name="Oil Pressure Tester">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/oil-pressure-tester-45.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-045.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Oil Pressure Tester</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Oil Pressure Tester">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-046" data-name="Diesel Compression Tester">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/diesel-compression-tester-46.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-046.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Diesel Compression Tester</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Diesel Compression Tester">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-047" data-name="Dial Test Indicator (DTI) with Magnetic Stand">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/dial-test-indicator-dti-with-magnetic-stand-47.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-047.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Dial Test Indicator (DTI) with Magnetic Stand</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Dial Test Indicator (DTI) with Magnetic Stand">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-048" data-name="Digital Valve Spring Tester">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/digital-valve-spring-tester-48.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-048.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Digital Valve Spring Tester</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Digital Valve Spring Tester">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-049" data-name="Battery Tester">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/battery-tester-49.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-049.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Battery Tester</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Battery Tester">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-050" data-name="Conventional Diesel Nozzle Tester">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/conventional-diesel-nozzle-tester-50.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-050.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Conventional Diesel Nozzle Tester</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Conventional Diesel Nozzle Tester">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-051" data-name="Torque Wrench">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/torque-wrench-51.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-051.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Torque Wrench</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Torque Wrench">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-052" data-name="Digital Vernier Caliper">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/digital-vernier-caliper-52.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-052.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Digital Vernier Caliper</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Digital Vernier Caliper">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-053" data-name="Depth Caliper">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/depth-caliper-53.jpeg" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-053.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Depth Caliper</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Depth Caliper">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-054" data-name="Radiator Cup and Pressure Tester">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/radiator-cup-and-pressure-tester-54.jpeg" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-054.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Radiator Cup and Pressure Tester</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Radiator Cup and Pressure Tester">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-055" data-name="Digital Belt Tension Meter Gauge">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/digital-belt-tension-meter-gauge-55.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-055.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Digital Belt Tension Meter Gauge</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Digital Belt Tension Meter Gauge">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-056" data-name="Gasoline Timing Light">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/gasoline-timing-light-56.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-056.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Gasoline Timing Light</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Gasoline Timing Light">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-058" data-name="Automotive Multimeter">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/automotive-multimeter-58.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-058.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Automotive Multimeter</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Automotive Multimeter">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-059" data-name="Surface Plate">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/surface-plate-59.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-059.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Surface Plate</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Surface Plate">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-062" data-name="Common Rail Pressure Tester and Simulator">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/common-rail-pressure-tester-and-simulator-62.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-062.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Common Rail Pressure Tester and Simulator</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Common Rail Pressure Tester and Simulator">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-063" data-name="ATF Exchanger">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/atf-exchanger-63.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-063.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>ATF Exchanger</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan ATF Exchanger">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-064" data-name="Parts Washer">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/parts-washer-64.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-064.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Parts Washer</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Parts Washer">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-065" data-name="Valve Grinder">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/valve-grinder-65.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-065.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Valve Grinder</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Valve Grinder">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-066" data-name="Valve Seat Cutting and Boring Machine">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/valve-seat-cutting-and-boring-machine-66.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-066.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Valve Seat Cutting and Boring Machine</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Valve Seat Cutting and Boring Machine">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-069" data-name="Recycle AC">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/recycle-ac-69.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-069.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Recycle AC</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Recycle AC">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-070" data-name="Refrigerant Leak Tester">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/refrigerant-leak-tester-70.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-070.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Refrigerant Leak Tester</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Refrigerant Leak Tester">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-071" data-name="Refrigerant Identifier">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/refrigerant-identifier-71.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-071.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Refrigerant Identifier</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Refrigerant Identifier">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-072" data-name="Bangku Uji Diesel Konvensional (Conventional Diesel Test Bench)">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/bangku-uji-diesel-konvensional-conventional-diesel-test-benc-72.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-072.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Bangku Uji Diesel Konvensional (Conventional Diesel Test Bench)</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Bangku Uji Diesel Konvensional (Conventional Diesel Test Bench)">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-074" data-name="Electronic Control Chassis Simulator Tool Set">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/electronic-control-chassis-simulator-tool-set-74.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-074.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Electronic Control Chassis Simulator Tool Set</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Electronic Control Chassis Simulator Tool Set">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-075" data-name="Peralatan Pelatihan Sistem Suspensi (Suspension System Training Equipment">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/peralatan-pelatihan-sistem-suspensi-suspension-system-traini-75.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-075.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Peralatan Pelatihan Sistem Suspensi (Suspension System Training Equipment</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Peralatan Pelatihan Sistem Suspensi (Suspension System Training Equipment">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-076" data-name="Sistem Power Steering dan Peralatan Pelatihan Suspensi (Power Steering System and Suspension Training Equipment)">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/sistem-power-steering-dan-peralatan-pelatihan-suspensi-power-76.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-076.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Sistem Power Steering dan Peralatan Pelatihan Suspensi (Power Steering System and Suspension Training Equipment)</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Sistem Power Steering dan Peralatan Pelatihan Suspensi (Power Steering System and Suspension Training Equipment)">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-077" data-name="Vehicle Frame Structure Training Equipment">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/vehicle-frame-structure-training-equipment-77.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-077.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Vehicle Frame Structure Training Equipment</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Vehicle Frame Structure Training Equipment">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-078" data-name="Gasoline Engine Power Train System">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/gasoline-engine-power-train-system-78.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-078.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Gasoline Engine Power Train System</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Gasoline Engine Power Train System">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-080" data-name="Multiple Automotive Sensor Training System">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/multiple-automotive-sensor-training-system-80.jpeg" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-080.png" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Multiple Automotive Sensor Training System</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Multiple Automotive Sensor Training System">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-084" data-name="Dekstop Type Immobilizzer Ignition Control Simulator">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/dekstop-type-immobilizzer-ignition-control-simulator-84.jpeg" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-084.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Dekstop Type Immobilizzer Ignition Control Simulator</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Dekstop Type Immobilizzer Ignition Control Simulator">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-085" data-name="Air Bag System Simulator with Auto Fault">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/air-bag-system-simulator-with-auto-fault-85.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-085.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Air Bag System Simulator with Auto Fault</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Air Bag System Simulator with Auto Fault">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-086" data-name="Automobile Data Transmission System CAN Bus Training Stand">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/automobile-data-transmission-system-can-bus-training-stand-86.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-086.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Automobile Data Transmission System CAN Bus Training Stand</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Automobile Data Transmission System CAN Bus Training Stand">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-087" data-name="Recovery Recycling And Recharging 3R Equipment With Semi Automatic Operation">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/recovery-recycling-and-recharging-3r-equipment-with-semi-aut-87.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-087.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Recovery Recycling And Recharging 3R Equipment With Semi Automatic Operation</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Recovery Recycling And Recharging 3R Equipment With Semi Automatic Operation">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-088" data-name="Car Starting and Charging System Trainer (Generator Circuit)">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/car-starting-and-charging-system-trainer-generator-circuit-88.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-088.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Car Starting and Charging System Trainer (Generator Circuit)</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Car Starting and Charging System Trainer (Generator Circuit)">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-089" data-name="Mekanikal Trainer">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/mekanikal-trainer-89.jpeg" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-089.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Mekanikal Trainer</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Mekanikal Trainer">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-090" data-name="Peralatan Pelatihan Kendali sabuk (Belt-Drive Training Equipment)">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/peralatan-pelatihan-kendali-sabuk-belt-drive-training-equipm-90.jpeg" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-090.png" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Peralatan Pelatihan Kendali sabuk (Belt-Drive Training Equipment)</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Peralatan Pelatihan Kendali sabuk (Belt-Drive Training Equipment)">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-092" data-name="Commonrail Engine Simulator">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/commonrail-engine-simulator-92.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-092.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Commonrail Engine Simulator</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Commonrail Engine Simulator">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-096" data-name="Air Bag Simulator And Trainer">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/air-bag-simulator-and-trainer-96.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-096.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Air Bag Simulator And Trainer</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Air Bag Simulator And Trainer">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-099" data-name="Gasoline Engine Trainer (EFI) Stand with Wiring Panel">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/gasoline-engine-trainer-efi-stand-with-wiring-panel-99.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-099.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Gasoline Engine Trainer (EFI) Stand with Wiring Panel</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Gasoline Engine Trainer (EFI) Stand with Wiring Panel">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-100" data-name="Engine Management">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/engine-management-100.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-100.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Engine Management</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Engine Management">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-101" data-name="Car Air Conditioner Trainer">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/car-air-conditioner-trainer-101.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-101.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Car Air Conditioner Trainer</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Car Air Conditioner Trainer">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-104" data-name="Gasoline Engine Cutting Model">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/gasoline-engine-cutting-model-104.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-104.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Gasoline Engine Cutting Model</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Gasoline Engine Cutting Model">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-105" data-name="Diesel Engine Model Training Stand">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/diesel-engine-model-training-stand-105.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-105.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Diesel Engine Model Training Stand</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Diesel Engine Model Training Stand">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-106" data-name="Charging System Trainer">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/charging-system-trainer-106.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-106.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Charging System Trainer</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Charging System Trainer">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-107" data-name="Pelatih Kemudi Tenaga Listrik (Electric Power Steering Trainer)">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/pelatih-kemudi-tenaga-listrik-electric-power-steering-traine-107.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-107.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Pelatih Kemudi Tenaga Listrik (Electric Power Steering Trainer)</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Pelatih Kemudi Tenaga Listrik (Electric Power Steering Trainer)">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-108" data-name="Alat latih Kemudi Daya Hidraulik (Hydraulic Power Steering Trainer)">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/alat-latih-kemudi-daya-hidraulik-hydraulic-power-steering-tr-108.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-108.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Alat latih Kemudi Daya Hidraulik (Hydraulic Power Steering Trainer)</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Alat latih Kemudi Daya Hidraulik (Hydraulic Power Steering Trainer)">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-114" data-name="Kelistrikan Otomotif AC-DC">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/kelistrikan-otomotif-ac-dc-114.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-114.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Kelistrikan Otomotif AC-DC</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Kelistrikan Otomotif AC-DC">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-115" data-name="Charging Electric Vehicle">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/charging-electric-vehicle-115.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-115.png" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Charging Electric Vehicle</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Charging Electric Vehicle">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="tkro-117" data-name="Mekanika Trainer">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/mekanika-trainer-117.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/tkro-117.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Kendaraan Ringan</span><h3>Mekanika Trainer</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Mekanika Trainer">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="toi-002" data-name="Alat Pelatihan Dasar Kelistrikan (Electricity Fundamental Training System)">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/alat-pelatihan-dasar-kelistrikan-electricity-fundamental-training-system-2.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/toi-002.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Otomasi Industri</span><h3>Alat Pelatihan Dasar Kelistrikan (Electricity Fundamental Training System)</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Alat Pelatihan Dasar Kelistrikan (Electricity Fundamental Training System)">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="toi-003" data-name="AC DC Training System">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/ac-dc-training-system-3.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/toi-003.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Otomasi Industri</span><h3>AC DC Training System</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan AC DC Training System">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="toi-004" data-name="Aplikasi PLC pada Mekanikal DC Motor">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/aplikasi-plc-pada-mekanikal-dc-motor-4.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/toi-004.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Otomasi Industri</span><h3>Aplikasi PLC pada Mekanikal DC Motor</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Aplikasi PLC pada Mekanikal DC Motor">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="toi-005" data-name="Alat Pelatihan Elektronika Dasar (Basic Electronic Trainer)">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/alat-pelatihan-elektronika-dasar-basic-electronic-trainer-5.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/toi-005.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Otomasi Industri</span><h3>Alat Pelatihan Elektronika Dasar (Basic Electronic Trainer)</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Alat Pelatihan Elektronika Dasar (Basic Electronic Trainer)">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="toi-006" data-name="Alat Pelatihan Penggerak Kecepatan Variabel (Variable Speed Drive (VSD) Training System)">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/alat-pelatihan-penggerak-kecepatan-variabel-variable-speed-drive-vsd-training-sy-6.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/toi-006.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Otomasi Industri</span><h3>Alat Pelatihan Penggerak Kecepatan Variabel (Variable Speed Drive (VSD) Training System)</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Alat Pelatihan Penggerak Kecepatan Variabel (Variable Speed Drive (VSD) Training System)">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="toi-007" data-name="Aplikasi PLC pada Traffic Light">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/aplikasi-plc-pada-traffic-light-7.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/toi-007.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Otomasi Industri</span><h3>Aplikasi PLC pada Traffic Light</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Aplikasi PLC pada Traffic Light">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="toi-008" data-name="Aplikasi Sensor Suhu, Aliran, Tekanan dan Level">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/aplikasi-sensor-suhu-aliran-tekanan-dan-level-8.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/toi-008.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Otomasi Industri</span><h3>Aplikasi Sensor Suhu, Aliran, Tekanan dan Level</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Aplikasi Sensor Suhu, Aliran, Tekanan dan Level">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="toi-010" data-name="Basic Principal of Digital Technology and Electronics">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/basic-principal-of-digital-technology-and-electronics-10.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/toi-010.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Otomasi Industri</span><h3>Basic Principal of Digital Technology and Electronics</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Basic Principal of Digital Technology and Electronics">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="toi-011" data-name="Belt Drive Training Equipment">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/belt-drive-training-equipment-11.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/toi-011.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Otomasi Industri</span><h3>Belt Drive Training Equipment</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Belt Drive Training Equipment">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="toi-012" data-name="Digital Circuit Training Kit">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/digital-circuit-training-kit-12.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/toi-012.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Otomasi Industri</span><h3>Digital Circuit Training Kit</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Digital Circuit Training Kit">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="toi-014" data-name="Elektronika and Digital Trainer">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/elektronika-and-digital-trainer-14.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/toi-014.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Otomasi Industri</span><h3>Elektronika and Digital Trainer</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Elektronika and Digital Trainer">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="toi-015" data-name="Frequency Control Speed Regulation Experiment System">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/frequency-control-speed-regulation-experiment-system-15.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/toi-015.png" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Otomasi Industri</span><h3>Frequency Control Speed Regulation Experiment System</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Frequency Control Speed Regulation Experiment System">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="toi-016" data-name="Microcontroller Trainer">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/microcontroller-trainer-16.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/toi-016.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Otomasi Industri</span><h3>Microcontroller Trainer</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Microcontroller Trainer">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="toi-017" data-name="Motor 3 Phase dan Kontaktor">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/motor-3-phase-dan-kontaktor-17.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/toi-017.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Otomasi Industri</span><h3>Motor 3 Phase dan Kontaktor</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Motor 3 Phase dan Kontaktor">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="toi-018" data-name="Portable Solar Power Experiment Box">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/portable-solar-power-experiment-box-18.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/toi-018.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Otomasi Industri</span><h3>Portable Solar Power Experiment Box</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Portable Solar Power Experiment Box">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="toi-019" data-name="Programmable Logic Controller Training Set">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/programmable-logic-controller-training-set-19.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/toi-019.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Otomasi Industri</span><h3>Programmable Logic Controller Training Set</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Programmable Logic Controller Training Set">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="toi-021" data-name="MCU Training Set">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/mcu-training-set-21.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/toi-021.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Otomasi Industri</span><h3>MCU Training Set</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan MCU Training Set">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="toi-022" data-name="Paket Stasiun Pengujian Sistem Produk Modular (Modular Product System Testing Station)">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/paket-stasiun-pengujian-sistem-produk-modular-modular-product-system-testing-sta-22.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/toi-022.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Otomasi Industri</span><h3>Paket Stasiun Pengujian Sistem Produk Modular (Modular Product System Testing Station)</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Paket Stasiun Pengujian Sistem Produk Modular (Modular Product System Testing Station)">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="toi-023" data-name="Servo Motor Trainer">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/servo-motor-trainer-23.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/toi-023.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Otomasi Industri</span><h3>Servo Motor Trainer</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Servo Motor Trainer">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article>
+<article class="card" data-id="toi-025" data-name="Sistem Pelatihan Hidraulik Tingkat Lanjut (Advanced Hidraulic Training System)">
+ <div class="cbody"><div class="imgs">
+   <figure class="now"><div class="fr sm"><img src="/produk/sistem-pelatihan-hidraulik-tingkat-lanjut-advanced-hidraulic-training-system-25.png" alt="foto sekarang" loading="lazy"></div><figcaption>Foto sekarang</figcaption></figure>
+   <figure class="new"><div class="fr"><img src="/review-img/toi-025.jpg" alt="usulan foto baru" loading="lazy"></div><figcaption>Usulan baru</figcaption></figure>
+  </div><div class="meta"><span class="cat">Teknik Otomasi Industri</span><h3>Sistem Pelatihan Hidraulik Tingkat Lanjut (Advanced Hidraulic Training System)</h3></div></div>
+ <div class="ctl"><div class="seg" role="group" aria-label="Keputusan Sistem Pelatihan Hidraulik Tingkat Lanjut (Advanced Hidraulic Training System)">
+   <button type="button" class="opt setuju is-on" data-v="setuju">✓ Setuju</button>
+   <button type="button" class="opt revisi" data-v="revisi">✎ Revisi</button></div>
+  <input type="text" class="cmt" placeholder="Catatan revisi (mis. foto kurang sesuai, warna beda…)" hidden></div>
+</article></div></main>
+<div class="bar"><div class="wrap barin">
+ <div class="tally"><span class="tk"><b id="ns">141</b> setuju</span><span class="tr"><b id="nr">0</b> revisi</span></div>
+ <button id="send" type="button">Kirim persetujuan →</button></div></div>
+<div id="modal" class="modal" hidden><div class="sheet">
+ <button class="x" id="close" aria-label="Tutup">✕</button>
+ <h2>Ringkasan persetujuan</h2>
+ <div id="sendstat" class="sendstat">Mengirim…</div>
+ <p class="msub">Cadangan: salin ringkasan di bawah &amp; kirim ke Russell (RVSL) via WhatsApp/Email bila perlu.</p>
+ <textarea id="sum" readonly></textarea>
+ <div class="mbtns"><button id="copy" type="button">Salin ringkasan</button><a id="mail" href="#" class="mailbtn">Kirim via Email</a></div>
+ <span id="ok" class="okmsg" hidden>Tersalin ✓</span></div></div>
+
+<script>
+const RUSSELL_EMAIL="nevaehruelrussell@gmail.com";
+const cards=[...document.querySelectorAll('.card')];
+const ns=document.getElementById('ns'),nr=document.getElementById('nr');
+function tally(){let s=0,r=0;cards.forEach(c=>{c.dataset.v==='revisi'?r++:s++});ns.textContent=s;nr.textContent=r;}
+cards.forEach(c=>{
+ c.dataset.v='setuju';
+ const opts=c.querySelectorAll('.opt'),cmt=c.querySelector('.cmt');
+ opts.forEach(o=>o.addEventListener('click',()=>{
+  opts.forEach(x=>x.classList.remove('is-on'));o.classList.add('is-on');
+  c.dataset.v=o.dataset.v;const rev=o.dataset.v==='revisi';
+  c.classList.toggle('rev',rev);cmt.hidden=!rev;if(rev)cmt.focus();
+  tally();
+ }));
+});
+tally();
+document.querySelectorAll('.fbtn').forEach(b=>b.addEventListener('click',()=>{
+ document.querySelectorAll('.fbtn').forEach(x=>x.classList.remove('is-on'));b.classList.add('is-on');
+ const cat=b.dataset.cat;
+ cards.forEach(c=>{c.style.display=(cat==='all'||c.dataset.id.startsWith(cat+'-'))?'':'none'});
+}));
+function summary(){
+ const who=(document.getElementById('who').value||'(nama belum diisi)').trim();
+ const rev=cards.filter(c=>c.dataset.v==='revisi');
+ const s=cards.length-rev.length;
+ let t='PERSETUJUAN FOTO KATALOG BOEMI NUSANTARA\\n';
+ t+='Peninjau: '+who+'\\n';
+ t+='Total ditinjau: '+cards.length+' produk\\n';
+ t+='SETUJU: '+s+' produk\\n';
+ t+='MINTA REVISI: '+rev.length+' produk\\n';
+ if(rev.length){t+='\\nDaftar revisi:\\n';rev.forEach(c=>{const note=c.querySelector('.cmt').value.trim();t+='- '+c.dataset.name+(note?' — '+note:'')+'\\n';});}
+ else{t+='\\nSemua foto disetujui. Silakan ditayangkan.';}
+ return t;
+}
+const modal=document.getElementById('modal');
+document.getElementById('send').addEventListener('click',async ()=>{
+ const t=summary();document.getElementById('sum').value=t;
+ document.getElementById('mail').href='mailto:'+RUSSELL_EMAIL+'?subject='+encodeURIComponent('Persetujuan Foto Katalog Boemi')+'&body='+encodeURIComponent(t);
+ modal.hidden=false;
+ const stat=document.getElementById('sendstat');
+ stat.textContent='Mengirim…';stat.className='sendstat sending';
+ try{
+  const who=(document.getElementById('who').value||'').trim();
+  const rev=cards.filter(c=>c.dataset.v==='revisi').map(c=>({id:c.dataset.id,name:c.dataset.name,note:c.querySelector('.cmt').value.trim()}));
+  const res=await fetch('/api/review-submit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({reviewer:who,total:cards.length,approved:cards.length-rev.length,revisions:rev})});
+  if(!res.ok)throw 0;
+  stat.textContent='✓ Terkirim ke Russell. Terima kasih!';stat.className='sendstat ok';
+ }catch(e){stat.textContent='⚠ Gagal kirim otomatis — mohon Salin ringkasan lalu kirim manual ke Russell.';stat.className='sendstat err';}
+});
+document.getElementById('close').addEventListener('click',()=>modal.hidden=true);
+modal.addEventListener('click',e=>{if(e.target===modal)modal.hidden=true});
+document.getElementById('copy').addEventListener('click',()=>{
+ const ta=document.getElementById('sum');ta.select();navigator.clipboard&&navigator.clipboard.writeText(ta.value);
+ document.getElementById('ok').hidden=false;
+});
+</script>

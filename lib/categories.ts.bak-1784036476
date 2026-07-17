@@ -1,0 +1,22 @@
+// Kategori toko = jurusan SMK. Data awal; admin bisa tambah nanti.
+export type Category = {
+  slug: string;
+  name: string;
+};
+
+export const CATEGORIES: Category[] = [
+  { slug: "tkro", name: "Teknik Kendaraan Ringan (TKRO)" },
+  { slug: "listrik", name: "Teknik Listrik" },
+  { slug: "elektronika", name: "Teknik Elektronika" },
+  { slug: "mesin", name: "Teknik Mesin" },
+  { slug: "bangunan", name: "Teknik Bangunan" },
+  { slug: "multimedia", name: "Multimedia & TKJ" },
+  { slug: "tata-boga", name: "Tata Boga" },
+  { slug: "tata-busana", name: "Tata Busana" },
+  { slug: "pertanian", name: "Pertanian" },
+  { slug: "kesehatan", name: "Kesehatan & Farmasi" },
+];
+
+export function categoryName(slug: string): string {
+  return CATEGORIES.find((c) => c.slug === slug)?.name ?? slug;
+}
