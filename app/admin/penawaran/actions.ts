@@ -4,6 +4,8 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { approveQuote, setQuoteStatus } from "@/lib/admin/quotes";
 import { checkAdmin } from "@/lib/admin/auth";
+import { addOffer, NegotiationError } from "@/lib/admin/negotiation";
+import { listRequestItems } from "@/lib/admin/quotes";
 
 /**
  * Server Action bisa dipanggil langsung lewat HTTP — jadi tiap action
@@ -91,4 +93,68 @@ export async function setStatusAction(
     revalidatePath("/admin/penawaran");
     revalidatePath(`/admin/penawaran/${requestId}`);
   }
+}
+
+/* ============ NEGOSIASI HARGA ============ */
+
+export type NegotiationState = { ok: boolean; error?: string };
+
+/**
+ * Server Action: kirim harga tandingan, terima harga pembeli, atau tolak.
+ * `requestId` di-bind di page.
+ *
+ * Harga diambil dari kolom isian per barang (`harga_<id>`), lalu dicocokkan
+ * dengan daftar barang milik permintaan ini — id yang tidak dikenal diabaikan,
+ * sehingga kiriman yang diutak-atik tidak bisa menyusupkan barang lain.
+ */
+export async function negotiateAction(
+  requestId: string,
+  _prev: NegotiationState,
+  formData: FormData,
+): Promise<NegotiationState> {
+  const gate = await checkAdmin();
+  if (!gate.ok) redirect(`/masuk?next=/admin/penawaran/${requestId}`);
+
+  const tindakan = String(formData.get("tindakan") ?? "");
+  const catatan = String(formData.get("catatan") ?? "").trim() || null;
+
+  if (!["counter", "accept", "reject"].includes(tindakan))
+    return { ok: false, error: "Tindakan tidak dikenal." };
+
+  const daftar = await listRequestItems(requestId);
+  if (daftar.length === 0)
+    return { ok: false, error: "Permintaan ini tidak punya rincian barang." };
+
+  let items: { requestItemId: string; qty: number; unitPrice: number }[] = [];
+
+  if (tindakan === "counter") {
+    items = daftar.map((d) => {
+      const raw = String(formData.get(`harga_${d.id}`) ?? "").trim();
+      return {
+        requestItemId: d.id,
+        qty: d.qty,
+        unitPrice: Math.max(0, Math.round(Number(raw) || 0)),
+      };
+    });
+    if (items.some((i) => i.unitPrice <= 0))
+      return { ok: false, error: "Semua harga harus diisi dengan angka di atas nol." };
+  }
+
+  try {
+    await addOffer({
+      requestId,
+      actor: "seller",
+      kind: tindakan as "counter" | "accept" | "reject",
+      note: catatan,
+      createdBy: gate.email,
+      items: tindakan === "counter" ? items : undefined,
+    });
+  } catch (e) {
+    if (e instanceof NegotiationError) return { ok: false, error: e.message };
+    return { ok: false, error: "Gagal menyimpan balasan. Coba lagi." };
+  }
+
+  revalidatePath(`/admin/penawaran/${requestId}`);
+  revalidatePath("/admin/penawaran");
+  return { ok: true };
 }

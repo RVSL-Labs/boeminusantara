@@ -1,4 +1,5 @@
 import "server-only";
+import { getAdminSupabase } from "@/lib/admin/supabase-admin";
 
 /**
  * Data-access ADMIN untuk RFQ / penawaran. Berbicara ke boemi-api (Fastify)
@@ -153,4 +154,43 @@ export async function setQuoteStatus(
   } catch (e) {
     return { ok: false, error: (e as Error).message };
   }
+}
+
+export type RequestItemRow = {
+  id: string;
+  name: string;
+  qty: number;
+  /** Harga katalog saat permintaan dibuat, exclude PPN. */
+  price: number;
+  /** Harga yang diminta pembeli, null bila tidak mengisi. */
+  buyerPrice: number | null;
+};
+
+/** Rincian barang satu permintaan penawaran — dipakai layar negosiasi. */
+export async function listRequestItems(requestId: string): Promise<RequestItemRow[]> {
+  const sb = getAdminSupabase();
+  if (!sb) return [];
+
+  const { data, error } = await sb
+    .from("quote_request_items")
+    .select("id, name, qty, price, buyer_price")
+    .eq("request_id", requestId);
+
+  if (error || !data) return [];
+
+  return (
+    data as {
+      id: string;
+      name: string;
+      qty: number;
+      price: number;
+      buyer_price: number | null;
+    }[]
+  ).map((r) => ({
+    id: r.id,
+    name: r.name,
+    qty: r.qty,
+    price: r.price,
+    buyerPrice: r.buyer_price,
+  }));
 }

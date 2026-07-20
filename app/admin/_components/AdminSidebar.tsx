@@ -16,6 +16,7 @@ const NAV: NavItem[] = [
   { href: "/admin/banner", label: "Banner" },
   { href: "/admin/halaman", label: "Halaman" },
   { href: "/admin/pengguna", label: "Pengguna Admin" },
+  { href: "/admin/perusahaan", label: "Identitas Perusahaan" },
   { href: "/admin/panduan", label: "Panduan" },
   { href: "/admin/pengaturan", label: "Pengaturan" },
 ];

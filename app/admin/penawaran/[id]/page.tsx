@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getQuote } from "@/lib/admin/quotes";
+import { getQuote, listRequestItems } from "@/lib/admin/quotes";
 import { formatIDR } from "@/lib/format";
-import { approveQuoteAction } from "../actions";
+import { listOffers, hargaBerlaku, negosiasiSelesai } from "@/lib/admin/negotiation";
+import { approveQuoteAction, negotiateAction } from "../actions";
+import { NegotiationPanel } from "./_components/NegotiationPanel";
 import { ApproveForm } from "../_components/ApproveForm";
 import { StatusBadge } from "../_components/StatusBadge";
 
@@ -22,6 +24,26 @@ export default async function QuoteDetailPage({
   const alreadyQuoted = quote.status === "quoted";
 
   const action = approveQuoteAction.bind(null, id);
+
+  // Negosiasi: riwayat ronde + harga yang berlaku sekarang.
+  const [offers, rincian] = await Promise.all([listOffers(id), listRequestItems(id)]);
+  const berlaku = hargaBerlaku(offers);
+  const selesai = negosiasiSelesai(offers);
+
+  const hargaTerakhir = new Map(
+    (berlaku?.items ?? []).map((i) => [i.requestItemId, i.unitPrice]),
+  );
+
+  const barisNegosiasi = rincian.map((r) => ({
+    id: r.id,
+    name: r.name,
+    qty: r.qty,
+    hargaKatalog: r.price,
+    hargaAjuan: r.buyerPrice,
+    // Kolom isian dimulai dari harga terakhir yang berlaku, lalu harga yang
+    // diminta pembeli, baru harga katalog — supaya admin tinggal menyesuaikan.
+    hargaBerlaku: hargaTerakhir.get(r.id) ?? r.buyerPrice ?? r.price,
+  }));
 
   return (
     <div>
@@ -156,6 +178,15 @@ export default async function QuoteDetailPage({
               </tfoot>
             </table>
           </section>
+
+          <div className="mt-8">
+            <NegotiationPanel
+              action={negotiateAction.bind(null, id)}
+              offers={offers}
+              items={barisNegosiasi}
+              selesai={selesai}
+            />
+          </div>
         </div>
 
         {/* Kanan: ACC */}
