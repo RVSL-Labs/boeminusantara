@@ -70,6 +70,19 @@ export default function Footer() {
                 Edukasi &amp; Wawasan
               </Link>
             </p>
+            <p className="mt-1">
+              <Link href="/magang" className="text-[var(--color-navy)] hover:underline">
+                Magang
+              </Link>
+              <span className="mx-1.5 text-[var(--color-line)]">·</span>
+              <Link href="/pelatihan" className="text-[var(--color-navy)] hover:underline">
+                Pelatihan
+              </Link>
+              <span className="mx-1.5 text-[var(--color-line)]">·</span>
+              <Link href="/pengaduan" className="text-[var(--color-navy)] hover:underline">
+                Pengaduan
+              </Link>
+            </p>
             <p className="mt-1">Harga belum termasuk PPN.</p>
             <p className="mt-1">Pengiriman ditangani langsung oleh tim kami.</p>
           </div>
