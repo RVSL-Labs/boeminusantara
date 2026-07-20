@@ -36,6 +36,11 @@ export async function saveCompanyAction(
       penandatangan,
       jabatan: ambil("jabatan"),
       kodeSurat: ambil("kodeSurat") || "BNKB",
+      bankName: ambil("bankName"),
+      bankAccount: ambil("bankAccount"),
+      bankHolder: ambil("bankHolder"),
+      pdnStatement: ambil("pdnStatement"),
+      termDays: Math.max(1, Number(ambil("termDays")) || 14),
     });
   } catch (e) {
     return { ok: false, error: e instanceof Error ? e.message : "Gagal menyimpan." };

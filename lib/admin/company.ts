@@ -20,6 +20,14 @@ export type CompanyProfile = {
   penandatangan: string;
   jabatan: string;
   kodeSurat: string;
+  /* Rekening penerima pembayaran — tercetak di invoice & kwitansi. */
+  bankName: string;
+  bankAccount: string;
+  bankHolder: string;
+  /* Redaksi Surat Pernyataan PDN / Non-TKDN. Disediakan Boemi, bukan sistem. */
+  pdnStatement: string;
+  /* Tempo pembayaran invoice, dalam hari. */
+  termDays: number;
 };
 
 const KOSONG: CompanyProfile = {
@@ -32,6 +40,11 @@ const KOSONG: CompanyProfile = {
   penandatangan: "",
   jabatan: "",
   kodeSurat: "BNKB",
+  bankName: "",
+  bankAccount: "",
+  bankHolder: "",
+  pdnStatement: "",
+  termDays: 14,
 };
 
 export async function getCompanyProfile(): Promise<CompanyProfile> {
@@ -46,7 +59,7 @@ export async function getCompanyProfile(): Promise<CompanyProfile> {
 
   if (error || !data) return KOSONG;
 
-  const r = data as Record<string, string>;
+  const r = data as Record<string, string> & { term_days?: number };
   return {
     nama: r.nama ?? "",
     npwp: r.npwp ?? "",
@@ -57,6 +70,11 @@ export async function getCompanyProfile(): Promise<CompanyProfile> {
     penandatangan: r.penandatangan ?? "",
     jabatan: r.jabatan ?? "",
     kodeSurat: r.kode_surat || "BNKB",
+    bankName: r.bank_name ?? "",
+    bankAccount: r.bank_account ?? "",
+    bankHolder: r.bank_holder ?? "",
+    pdnStatement: r.pdn_statement ?? "",
+    termDays: Number(r.term_days ?? 14) || 14,
   };
 }
 
@@ -75,6 +93,11 @@ export async function saveCompanyProfile(p: CompanyProfile): Promise<void> {
     penandatangan: p.penandatangan,
     jabatan: p.jabatan,
     kode_surat: p.kodeSurat,
+    bank_name: p.bankName,
+    bank_account: p.bankAccount,
+    bank_holder: p.bankHolder,
+    pdn_statement: p.pdnStatement,
+    term_days: p.termDays,
     updated_at: new Date().toISOString(),
   });
   if (error) throw new Error(error.message);

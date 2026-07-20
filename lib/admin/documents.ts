@@ -60,6 +60,21 @@ export type DocSnapshot = {
   terbilang: string;
   catatan: string | null;
   kodePermintaan: string;
+
+  /* --- bagian khas dokumen lanjutan --- */
+  nomorSuratPesanan?: string;
+  bank?: { nama: string; nomor: string; atasNama: string };
+  jatuhTempo?: string;
+  pernyataan?: string;
+  ronde?: {
+    nomor: number;
+    pihak: string;
+    jenis: string;
+    subtotal: number;
+    catatan: string | null;
+    waktu: string;
+    items: { nama: string; qty: number; hargaSatuan: number; total: number }[];
+  }[];
 };
 
 export class DocumentError extends Error {}
@@ -284,4 +299,137 @@ export async function listDocumentsForRequest(requestId: string): Promise<Stored
     voidedAt: r.voided_at ? String(r.voided_at) : null,
     snapshot: r.snapshot as DocSnapshot,
   }));
+}
+
+/* ================= DOKUMEN LANJUTAN ================= */
+
+/**
+ * Semua dokumen lanjutan berangkat dari Surat Pesanan yang sudah terbit.
+ * Alasannya: SP memuat harga yang disepakati dan identitas kedua pihak pada
+ * saat itu. Kalau tiap dokumen menghitung ulang sendiri, invoice dan surat
+ * pesanan bisa berbeda angka — dan itu temuan pemeriksaan yang paling mahal.
+ */
+async function suratPesananDasar(requestId: string): Promise<StoredDocument> {
+  const dokumen = await listDocumentsForRequest(requestId);
+  const sp = dokumen.find((d) => d.docType === "SP" && !d.voidedAt);
+  if (!sp)
+    throw new DocumentError(
+      "Terbitkan Surat Pesanan lebih dulu — dokumen lain mengambil angkanya dari sana.",
+    );
+  return sp;
+}
+
+async function simpanDokumen(params: {
+  type: DocType;
+  requestId: string;
+  snapshot: DocSnapshot;
+  issuedBy: string;
+}): Promise<{ id: string; nomor: string }> {
+  const sb = getAdminSupabase();
+  if (!sb) throw new DocumentError("Database belum terhubung.");
+
+  const { data, error } = await sb
+    .from("documents")
+    .insert({
+      doc_type: params.type,
+      number: params.snapshot.nomor,
+      request_id: params.requestId,
+      snapshot: params.snapshot as never,
+      issued_by: params.issuedBy,
+    })
+    .select("id, number")
+    .single();
+
+  if (error) throw new DocumentError("Gagal menyimpan dokumen: " + error.message);
+  const d = data as { id: string; number: string };
+  return { id: d.id, nomor: d.number };
+}
+
+/** Cegah dokumen jenis sama terbit dua kali untuk permintaan yang sama. */
+async function pastikanBelumTerbit(requestId: string, type: DocType): Promise<void> {
+  const dokumen = await listDocumentsForRequest(requestId);
+  const ada = dokumen.find((d) => d.docType === type && !d.voidedAt);
+  if (ada)
+    throw new DocumentError(`Dokumen ini sudah terbit dengan nomor ${ada.number}.`);
+}
+
+export type JenisLanjutan = "INV" | "SJ" | "BAST" | "KW" | "NEG" | "PDN";
+
+/**
+ * Terbitkan dokumen lanjutan. Isinya menyalin snapshot Surat Pesanan lalu
+ * menambah bagian khas tiap jenis — sehingga angka antar dokumen dijamin sama.
+ */
+export async function issueDokumenLanjutan(params: {
+  requestId: string;
+  type: JenisLanjutan;
+  issuedBy: string;
+  catatan: string | null;
+}): Promise<{ id: string; nomor: string }> {
+  const penerbit = await getCompanyProfile();
+  const sp = await suratPesananDasar(params.requestId);
+  await pastikanBelumTerbit(params.requestId, params.type);
+
+  // Syarat khusus per jenis — ditolak lebih awal daripada mencetak surat cacat.
+  if (params.type === "INV" && !penerbit.bankAccount)
+    throw new DocumentError(
+      "Nomor rekening belum diisi di Identitas Perusahaan. Invoice tanpa rekening tidak bisa dibayar.",
+    );
+  if (params.type === "PDN" && !penerbit.pdnStatement.trim())
+    throw new DocumentError(
+      "Redaksi Surat Pernyataan PDN belum diisi di Identitas Perusahaan. Isi pernyataan hukum harus dari Boemi, bukan dikarang sistem.",
+    );
+
+  const nomor = await nextDocNumber(params.type);
+  const sekarang = new Date();
+
+  const snapshot: DocSnapshot = {
+    ...sp.snapshot,
+    jenis: params.type,
+    nomor,
+    tanggal: sekarang.toISOString(),
+    catatan: params.catatan,
+    // Identitas penerbit disegarkan hanya untuk bagian pembayaran; sisanya
+    // tetap mengikuti Surat Pesanan supaya kedua surat konsisten.
+    bank:
+      params.type === "INV" || params.type === "KW"
+        ? {
+            nama: penerbit.bankName,
+            nomor: penerbit.bankAccount,
+            atasNama: penerbit.bankHolder || penerbit.nama,
+          }
+        : undefined,
+    jatuhTempo:
+      params.type === "INV"
+        ? new Date(
+            sekarang.getTime() + penerbit.termDays * 24 * 60 * 60 * 1000,
+          ).toISOString()
+        : undefined,
+    pernyataan: params.type === "PDN" ? penerbit.pdnStatement : undefined,
+    nomorSuratPesanan: sp.number,
+  };
+
+  if (params.type === "NEG") {
+    const offers = await listOffers(params.requestId);
+    snapshot.ronde = offers.map((o) => ({
+      nomor: o.round,
+      pihak: o.actor === "seller" ? penerbit.nama : snapshot.pembeli.instansi,
+      jenis: o.kind,
+      subtotal: o.subtotal,
+      catatan: o.note,
+      waktu: o.createdAt,
+      items: o.items.map((i) => ({
+        nama: i.name,
+        qty: i.qty,
+        hargaSatuan: i.unitPrice,
+        total: i.subtotal,
+      })),
+    }));
+  }
+
+  return simpanDokumen({
+    type: params.type,
+    requestId: params.requestId,
+    snapshot,
+    issuedBy: params.issuedBy,
+  });
 }

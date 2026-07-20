@@ -3,7 +3,12 @@ import { notFound } from "next/navigation";
 import { getQuote, listRequestItems } from "@/lib/admin/quotes";
 import { formatIDR } from "@/lib/format";
 import { listOffers, hargaBerlaku, negosiasiSelesai } from "@/lib/admin/negotiation";
-import { approveQuoteAction, negotiateAction, terbitkanSuratPesananAction } from "../actions";
+import {
+  approveQuoteAction,
+  negotiateAction,
+  terbitkanSuratPesananAction,
+  terbitkanDokumenAction,
+} from "../actions";
 import { listDocumentsForRequest } from "@/lib/admin/documents";
 import { TerbitkanSurat } from "./_components/TerbitkanSurat";
 import { NegotiationPanel } from "./_components/NegotiationPanel";
@@ -196,10 +201,12 @@ export default async function QuoteDetailPage({
 
           <TerbitkanSurat
             action={terbitkanSuratPesananAction.bind(null, id)}
+            aksiDokumenLanjutan={terbitkanDokumenAction.bind(null, id)}
             bisaTerbit={selesai === "agreed"}
             dokumen={dokumen.map((d) => ({
               id: d.id,
               number: d.number,
+              docType: d.docType,
               issuedAt: d.issuedAt,
               issuedBy: d.issuedBy,
             }))}

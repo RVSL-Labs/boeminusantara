@@ -154,6 +154,49 @@ export function CompanyForm({
         </p>
       </fieldset>
 
+      <fieldset className="rounded-[var(--radius-card)] border border-[var(--color-line)] p-4">
+        <legend className="px-1 text-sm font-medium text-[var(--color-ink)]">
+          Rekening penerima pembayaran
+        </legend>
+        <p className={hint}>Tercetak di invoice dan kwitansi.</p>
+        <div className="mt-3 grid gap-5 sm:grid-cols-3">
+          <div>
+            <label htmlFor="bankName" className={label}>Nama Bank</label>
+            <input id="bankName" name="bankName" defaultValue={profile.bankName} className={field} placeholder="BCA" />
+          </div>
+          <div>
+            <label htmlFor="bankAccount" className={label}>Nomor Rekening</label>
+            <input id="bankAccount" name="bankAccount" defaultValue={profile.bankAccount} className={field} inputMode="numeric" />
+          </div>
+          <div>
+            <label htmlFor="bankHolder" className={label}>Atas Nama</label>
+            <input id="bankHolder" name="bankHolder" defaultValue={profile.bankHolder} className={field} />
+          </div>
+        </div>
+        <div className="mt-5 max-w-xs">
+          <label htmlFor="termDays" className={label}>Tempo pembayaran (hari)</label>
+          <input id="termDays" name="termDays" type="number" min={1} defaultValue={profile.termDays} className={field} />
+        </div>
+      </fieldset>
+
+      <fieldset className="rounded-[var(--radius-card)] border border-[var(--color-line)] p-4">
+        <legend className="px-1 text-sm font-medium text-[var(--color-ink)]">
+          Redaksi Surat Pernyataan PDN / Non-TKDN
+        </legend>
+        <p className={hint}>
+          Isi pernyataan hukum — harus dari Boemi, tidak boleh dikarang sistem.
+          Surat PDN tidak bisa diterbitkan sebelum ini diisi.
+        </p>
+        <textarea
+          id="pdnStatement"
+          name="pdnStatement"
+          rows={5}
+          defaultValue={profile.pdnStatement}
+          className={field + " mt-3 font-mono text-[13px]"}
+          placeholder="Dengan ini kami menyatakan bahwa barang yang kami tawarkan…"
+        />
+      </fieldset>
+
       <button
         type="submit"
         disabled={pending}

@@ -6,7 +6,12 @@ import { approveQuote, setQuoteStatus } from "@/lib/admin/quotes";
 import { checkAdmin } from "@/lib/admin/auth";
 import { addOffer, NegotiationError } from "@/lib/admin/negotiation";
 import { listRequestItems } from "@/lib/admin/quotes";
-import { issueSuratPesanan, DocumentError } from "@/lib/admin/documents";
+import {
+  issueSuratPesanan,
+  issueDokumenLanjutan,
+  DocumentError,
+  type JenisLanjutan,
+} from "@/lib/admin/documents";
 
 /**
  * Server Action bisa dipanggil langsung lewat HTTP — jadi tiap action
@@ -190,5 +195,34 @@ export async function terbitkanSuratPesananAction(
   } catch (e) {
     if (e instanceof DocumentError) return { ok: false, error: e.message };
     return { ok: false, error: "Gagal menerbitkan surat. Coba lagi." };
+  }
+}
+
+/** Terbitkan dokumen lanjutan (invoice, surat jalan, BAST, kwitansi, dst). */
+export async function terbitkanDokumenAction(
+  requestId: string,
+  _prev: TerbitState,
+  formData: FormData,
+): Promise<TerbitState> {
+  const gate = await checkAdmin();
+  if (!gate.ok) redirect(`/masuk?next=/admin/penawaran/${requestId}`);
+
+  const jenis = String(formData.get("jenis") ?? "");
+  const sah = ["INV", "SJ", "BAST", "KW", "NEG", "PDN"];
+  if (!sah.includes(jenis)) return { ok: false, error: "Jenis dokumen tidak dikenal." };
+
+  try {
+    const hasil = await issueDokumenLanjutan({
+      requestId,
+      type: jenis as JenisLanjutan,
+      issuedBy: gate.email,
+      catatan: String(formData.get("catatanSurat") ?? "").trim() || null,
+    });
+    revalidatePath(`/admin/penawaran/${requestId}`);
+    revalidatePath("/portal/dokumen");
+    return { ok: true, docId: hasil.id, nomor: hasil.nomor };
+  } catch (e) {
+    if (e instanceof DocumentError) return { ok: false, error: e.message };
+    return { ok: false, error: "Gagal menerbitkan dokumen. Coba lagi." };
   }
 }

@@ -20,6 +20,16 @@ const KLAUSUL = [
   "Segala perselisihan yang timbul diselesaikan antara para pihak sesuai ketentuan yang berlaku.",
 ];
 
+const JUDUL: Record<string, string> = {
+  SP: "Surat Pesanan",
+  INV: "Surat Tagihan / Invoice",
+  SJ: "Surat Jalan",
+  BAST: "Berita Acara Serah Terima",
+  KW: "Kwitansi",
+  NEG: "Riwayat Negosiasi Harga",
+  PDN: "Surat Pernyataan PDN",
+};
+
 const HARI = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
 
 function tanggalPanjang(iso: string): string {
@@ -96,7 +106,7 @@ export default async function DokumenPage({
             <p className="text-[12px]">NPWP: {s.penerbit.npwp}</p>
           </div>
           <div className="text-right">
-            <p className="text-lg font-bold uppercase">Surat Pesanan</p>
+            <p className="text-lg font-bold uppercase">{JUDUL[s.jenis] ?? "Dokumen"}</p>
             <p className="text-[12px]">Nomor: {s.nomor}</p>
           </div>
         </div>
@@ -242,7 +252,126 @@ export default async function DokumenPage({
         </section>
       )}
 
-      {/* Klausul */}
+      {/* Bagian khas per jenis dokumen */}
+      {s.jenis === "INV" && s.bank && (
+        <section className="mt-5 border border-black p-3 text-[12px]">
+          <p className="font-semibold">Pembayaran</p>
+          <table className="mt-1 w-full">
+            <tbody>
+              <tr>
+                <td className="w-40 py-0.5 text-neutral-600">Bank</td>
+                <td className="py-0.5">{s.bank.nama}</td>
+              </tr>
+              <tr>
+                <td className="py-0.5 text-neutral-600">Nomor rekening</td>
+                <td className="py-0.5 font-semibold">{s.bank.nomor}</td>
+              </tr>
+              <tr>
+                <td className="py-0.5 text-neutral-600">Atas nama</td>
+                <td className="py-0.5">{s.bank.atasNama}</td>
+              </tr>
+              {s.jatuhTempo && (
+                <tr>
+                  <td className="py-0.5 text-neutral-600">Batas pembayaran</td>
+                  <td className="py-0.5">{tanggalPendek(s.jatuhTempo)}</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+          <p className="mt-2 text-[11px]">
+            Mohon cantumkan nomor {s.nomorSuratPesanan ?? s.nomor} pada berita transfer.
+          </p>
+        </section>
+      )}
+
+      {s.jenis === "BAST" && (
+        <section className="mt-5 text-[12px] leading-relaxed">
+          <p>
+            Pada hari ini, {tanggalPanjang(s.tanggal)}, bertempat di{" "}
+            {s.pembeli.kota || "lokasi penerima"}, kedua belah pihak menyatakan
+            bahwa barang sebagaimana dirinci di atas telah diserahkan oleh{" "}
+            <span className="font-semibold">{s.penerbit.nama}</span> dan diterima
+            dalam keadaan baik serta sesuai pesanan oleh{" "}
+            <span className="font-semibold">{s.pembeli.instansi}</span>.
+          </p>
+          <p className="mt-2">
+            Berita acara ini dibuat sebagai dasar penyelesaian pembayaran atas
+            Surat Pesanan Nomor {s.nomorSuratPesanan ?? "-"}.
+          </p>
+        </section>
+      )}
+
+      {s.jenis === "KW" && (
+        <section className="mt-5 border border-black p-4 text-[12px] leading-relaxed">
+          <table className="w-full">
+            <tbody>
+              <tr>
+                <td className="w-40 py-1 align-top text-neutral-600">Telah diterima dari</td>
+                <td className="py-1 font-semibold">{s.pembeli.instansi}</td>
+              </tr>
+              <tr>
+                <td className="py-1 align-top text-neutral-600">Uang sejumlah</td>
+                <td className="py-1 font-semibold">{s.terbilang}</td>
+              </tr>
+              <tr>
+                <td className="py-1 align-top text-neutral-600">Untuk pembayaran</td>
+                <td className="py-1">
+                  Pengadaan barang sesuai Surat Pesanan Nomor{" "}
+                  {s.nomorSuratPesanan ?? s.kodePermintaan}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <p className="mt-3 inline-block border border-black px-3 py-1 text-base font-bold">
+            {formatIDR(s.total)}
+          </p>
+        </section>
+      )}
+
+      {s.jenis === "PDN" && s.pernyataan && (
+        <section className="mt-5 whitespace-pre-wrap text-[12px] leading-relaxed">
+          {s.pernyataan}
+        </section>
+      )}
+
+      {s.jenis === "NEG" && s.ronde && (
+        <section className="mt-5">
+          <p className="mb-2 text-[11px] font-semibold uppercase tracking-wide text-neutral-600">
+            Riwayat Tawar-menawar
+          </p>
+          <div className="space-y-3">
+            {s.ronde.map((r) => (
+              <div key={r.nomor} className="border border-black p-2 text-[11.5px]">
+                <p className="font-semibold">
+                  Ronde {r.nomor} · {r.pihak} · {tanggalPendek(r.waktu)}
+                </p>
+                {r.items.length > 0 && (
+                  <table className="mt-1 w-full">
+                    <tbody>
+                      {r.items.map((it, k) => (
+                        <tr key={k}>
+                          <td className="py-0.5">{it.nama}</td>
+                          <td className="py-0.5 text-right tabular-nums">{it.qty} ×</td>
+                          <td className="py-0.5 text-right tabular-nums">
+                            {formatIDR(it.hargaSatuan)}
+                          </td>
+                          <td className="py-0.5 text-right tabular-nums">
+                            {formatIDR(it.total)}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                )}
+                {r.catatan && <p className="mt-1 italic">“{r.catatan}”</p>}
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Klausul — hanya di Surat Pesanan */}
+      {s.jenis === "SP" && (
       <section className="mt-5">
         <p className="text-[12px] font-semibold">Ketentuan</p>
         <ol className="mt-1 list-decimal space-y-0.5 pl-5 text-[11.5px]">
@@ -251,6 +380,7 @@ export default async function DokumenPage({
           ))}
         </ol>
       </section>
+      )}
 
       {/* Tanda tangan — sengaja dikosongkan untuk dicetak & ditandatangani basah */}
       <section className="mt-8">
