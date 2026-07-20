@@ -62,6 +62,14 @@ export default function Footer() {
                 Tentang &amp; Legalitas
               </Link>
             </p>
+            <p className="mt-1">
+              <Link
+                href="/edukasi"
+                className="text-[var(--color-navy)] hover:underline"
+              >
+                Edukasi &amp; Wawasan
+              </Link>
+            </p>
             <p className="mt-1">Harga belum termasuk PPN.</p>
             <p className="mt-1">Pengiriman ditangani langsung oleh tim kami.</p>
           </div>

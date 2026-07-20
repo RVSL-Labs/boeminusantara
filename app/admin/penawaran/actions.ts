@@ -3,6 +3,17 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { approveQuote, setQuoteStatus } from "@/lib/admin/quotes";
+import { checkAdmin } from "@/lib/admin/auth";
+
+/**
+ * Server Action bisa dipanggil langsung lewat HTTP — jadi tiap action
+ * memeriksa admin sendiri, tidak menumpang pagar layout.
+ */
+async function requireAdmin() {
+  const gate = await checkAdmin();
+  if (!gate.ok) redirect("/masuk?next=/admin/penawaran");
+}
+
 
 export type ApproveState = {
   ok: boolean;
@@ -20,6 +31,7 @@ export async function approveQuoteAction(
   _prev: ApproveState,
   formData: FormData,
 ): Promise<ApproveState> {
+  await requireAdmin();
   const discountRaw = String(formData.get("discount") ?? "").trim();
   const ppnEnabled = formData.get("ppnEnabled") === "on";
   const validUntil = String(formData.get("validUntil") ?? "").trim();
@@ -68,6 +80,7 @@ export async function setStatusAction(
   requestId: string,
   formData: FormData,
 ): Promise<void> {
+  await requireAdmin();
   const status = String(formData.get("status") ?? "").trim();
   if (
     status === "reviewed" ||

@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import { redirect } from "next/navigation";
 import { AdminSidebar } from "./_components/AdminSidebar";
 import { hasServiceRole, isAdminDbConnected } from "@/lib/admin/supabase-admin";
+import { checkAdmin } from "@/lib/admin/auth";
 
 export const metadata: Metadata = {
   title: { default: "Admin · Boemi Nusantara", template: "%s · Admin Boemi" },
@@ -12,10 +14,13 @@ export const metadata: Metadata = {
  * Layout ADMIN — terpisah total dari storefront (tanpa Header/Footer toko).
  * Desktop-first: sidebar tetap di kiri, konten di kanan.
  *
- * TODO(auth): proteksi route ini menunggu agent AUTH. Rencana: cek session
- * Supabase + role admin di sini (redirect ke /masuk bila bukan admin).
+ * Gerbang lapis-2: middleware sudah menyaring, tapi kita verifikasi ulang session
+ * di server. Middleware bukan batas keamanan yang boleh berdiri sendiri.
  */
-export default function AdminLayout({ children }: { children: ReactNode }) {
+export default async function AdminLayout({ children }: { children: ReactNode }) {
+  const gate = await checkAdmin();
+  if (!gate.ok) redirect("/masuk?next=/admin");
+
   const connected = isAdminDbConnected();
   const canWrite = hasServiceRole();
 
@@ -24,6 +29,21 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
       <AdminSidebar />
 
       <div className="flex min-w-0 flex-1 flex-col">
+        {/* Bar identitas admin + keluar */}
+        <div className="flex items-center justify-between gap-4 border-b border-[var(--color-line)] bg-[var(--color-paper)] px-6 py-2 text-xs text-[var(--color-ink-soft)]">
+          <span>
+            Masuk sebagai <strong className="font-medium">{gate.email}</strong>
+          </span>
+          <form action="/auth/signout" method="post">
+            <button
+              type="submit"
+              className="rounded border border-[var(--color-line)] px-2 py-1 hover:bg-[var(--color-paper-dim)]"
+            >
+              Keluar
+            </button>
+          </form>
+        </div>
+
         {/* Bar status koneksi DB */}
         {(!connected || !canWrite) && (
           <div className="border-b border-[var(--color-line)] bg-[var(--color-paper)] px-6 py-2 text-xs text-[var(--color-ink-soft)]">

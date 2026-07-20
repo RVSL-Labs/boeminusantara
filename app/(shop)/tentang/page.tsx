@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { getPublishedPage } from "@/lib/content";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -44,7 +45,10 @@ const ALUR = [
   },
 ] as const;
 
-export default function TentangPage() {
+export default async function TentangPage() {
+  // Profil bisa ditimpa lewat CMS (/admin/halaman). Belum diisi → pakai teks bawaan.
+  const cms = await getPublishedPage("tentang");
+
   return (
     <div className="mx-auto max-w-4xl px-4 py-12 sm:py-16">
       {/* Profil singkat */}
@@ -53,15 +57,28 @@ export default function TentangPage() {
           Tentang & Legalitas
         </p>
         <h1 className="mt-3 text-2xl font-semibold tracking-tight text-navy sm:text-3xl">
-          PT. Boemi Nusantara Kaya Berkah
+          {cms?.title ?? "PT. Boemi Nusantara Kaya Berkah"}
         </h1>
-        <p className="mt-4 text-base leading-relaxed text-ink-soft">
-          Kami adalah penyedia alat dan perlengkapan praktik SMK — dari
-          peralatan bengkel, laboratorium, hingga perlengkapan tata boga dan
-          administrasi. Sebagai vendor yang terdaftar sebagai penyedia
-          pemerintah, kami terbiasa melayani pengadaan instansi dengan dokumen
-          resmi, harga ber-PPN, dan pengiriman yang tercatat.
-        </p>
+        {cms ? (
+          <div className="mt-4 space-y-4">
+            {cms.body
+              .split(/\n\s*\n/)
+              .filter((p) => p.trim())
+              .map((p, i) => (
+                <p key={i} className="text-base leading-relaxed text-ink-soft">
+                  {p}
+                </p>
+              ))}
+          </div>
+        ) : (
+          <p className="mt-4 text-base leading-relaxed text-ink-soft">
+            Kami adalah penyedia alat dan perlengkapan praktik SMK — dari
+            peralatan bengkel, laboratorium, hingga perlengkapan tata boga dan
+            administrasi. Sebagai vendor yang terdaftar sebagai penyedia
+            pemerintah, kami terbiasa melayani pengadaan instansi dengan dokumen
+            resmi, harga ber-PPN, dan pengiriman yang tercatat.
+          </p>
+        )}
       </header>
 
       {/* Legalitas */}

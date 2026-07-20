@@ -11,7 +11,15 @@ export async function middleware(request: NextRequest) {
 
   let supabaseResponse = NextResponse.next({ request });
 
-  if (!url || !key) return supabaseResponse;
+  if (!url || !key) {
+    // Tanpa Supabase, session tidak bisa diverifikasi → /admin ditutup rapat.
+    if (request.nextUrl.pathname.startsWith("/admin")) {
+      return new NextResponse("Admin dinonaktifkan: autentikasi belum dikonfigurasi.", {
+        status: 503,
+      });
+    }
+    return supabaseResponse;
+  }
 
   const supabase = createServerClient(url, key, {
     cookies: {
@@ -38,17 +46,14 @@ export async function middleware(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  // Gerbang /admin: butuh login + email masuk allowlist ADMIN_EMAILS (comma).
-  // Bila ADMIN_EMAILS kosong → cukup login (mode sederhana; WAJIB diisi di produksi).
-  // Aktif hanya saat Supabase dikonfigurasi (dev tanpa env → early-return di atas).
+  // Gerbang /admin lapis-1: WAJIB sudah login. Middleware hanya mengurus
+  // "siapa kamu", bukan "kamu berhak apa" — daftar admin ada di database dan
+  // middleware (edge runtime) tidak boleh menyentuh DB.
+  //
+  // Lapis-2 di app/admin/layout.tsx yang memeriksa hak akses sesungguhnya
+  // (pemilik dari env + staf dari tabel admin_users), fail-closed.
   if (request.nextUrl.pathname.startsWith("/admin")) {
-    const admins = (process.env.ADMIN_EMAILS || "")
-      .split(",")
-      .map((e) => e.trim().toLowerCase())
-      .filter(Boolean);
-    const email = user?.email?.toLowerCase();
-    const allowed = !!user && (admins.length === 0 || (email ? admins.includes(email) : false));
-    if (!allowed) {
+    if (!user) {
       const loginUrl = request.nextUrl.clone();
       loginUrl.pathname = "/masuk";
       loginUrl.searchParams.set("next", request.nextUrl.pathname);

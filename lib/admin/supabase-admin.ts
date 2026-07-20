@@ -1,5 +1,5 @@
 import "server-only";
-import { createClient, type SupabaseClient } from "@supabase/supabase-js";
+import { createClient } from "@supabase/supabase-js";
 
 /**
  * Klien Supabase untuk operasi ADMIN (server-only).
@@ -12,22 +12,29 @@ import { createClient, type SupabaseClient } from "@supabase/supabase-js";
  * - Kalau env kosong sama sekali → null → data layer jatuh ke SEED_PRODUCTS
  *   (mode "preview / belum terhubung DB").
  */
-let cached: SupabaseClient | null | undefined;
-
-export function getAdminSupabase(): SupabaseClient | null {
-  if (cached !== undefined) return cached;
-
+function makeAdminClient() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
   const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
   const key = serviceKey || anonKey;
 
-  cached =
-    url && key
-      ? createClient(url, key, {
-          auth: { persistSession: false, autoRefreshToken: false },
-        })
-      : null;
+  return url && key
+    ? createClient(url, key, {
+        auth: { persistSession: false, autoRefreshToken: false },
+        // WAJIB: seluruh tabel Boemi ada di schema `boemi`, bukan `public`
+        // (schema public dipakai bersama aplikasi RVSL lain di project Supabase
+        // yang sama). Tanpa baris ini semua query mengenai schema kosong dan
+        // data layer diam-diam jatuh ke SEED_PRODUCTS — kelihatan "jalan"
+        // padahal tidak menyentuh database sama sekali.
+        db: { schema: "boemi" },
+      })
+    : null;
+}
+
+let cached: ReturnType<typeof makeAdminClient> | undefined;
+
+export function getAdminSupabase() {
+  if (cached === undefined) cached = makeAdminClient();
   return cached;
 }
 

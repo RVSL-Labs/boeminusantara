@@ -7,6 +7,21 @@ import {
   isSupabaseConfiguredBrowser,
 } from "@/lib/supabase-browser";
 
+/** Login Google baru muncul kalau provider-nya dinyalakan di Supabase. */
+const GOOGLE_ENABLED = process.env.NEXT_PUBLIC_GOOGLE_LOGIN === "true";
+
+/**
+ * Tujuan setelah login, dari ?next=. Hanya path relatif satu-origin yang
+ * diterima ("/admin"); "//jahat.com" & URL absolut ditolak → open-redirect.
+ */
+function safeNext(): string {
+  if (typeof window === "undefined") return "/";
+  const raw = new URLSearchParams(window.location.search).get("next");
+  if (!raw) return "/";
+  if (!raw.startsWith("/") || raw.startsWith("//")) return "/";
+  return raw;
+}
+
 export default function MasukPage() {
   const configured = isSupabaseConfiguredBrowser();
   const [email, setEmail] = useState("");
@@ -31,8 +46,8 @@ export default function MasukPage() {
       setError("Email atau kata sandi salah. Coba lagi.");
       return;
     }
-    // Berhasil → ke beranda. Middleware sudah sinkron cookie session.
-    window.location.assign("/");
+    // Berhasil → balik ke halaman tujuan (mis. /admin). Middleware sinkron cookie.
+    window.location.assign(safeNext());
   }
 
   async function handleGoogleLogin() {
@@ -119,22 +134,35 @@ export default function MasukPage() {
               </button>
             </form>
 
-            <div className="my-5 flex items-center gap-3 text-xs text-mute">
-              <span className="h-px flex-1 bg-line" />
-              atau
-              <span className="h-px flex-1 bg-line" />
-            </div>
+            {/* Tombol Google hanya muncul kalau providernya memang dinyalakan
+                di Supabase. Sebelumnya selalu tampil padahal provider mati —
+                yang menekan cuma dapat error tanpa penjelasan. */}
+            {GOOGLE_ENABLED && (
+              <>
+                <div className="my-5 flex items-center gap-3 text-xs text-mute">
+                  <span className="h-px flex-1 bg-line" />
+                  atau
+                  <span className="h-px flex-1 bg-line" />
+                </div>
 
-            <button
-              type="button"
-              onClick={handleGoogleLogin}
-              className="flex w-full items-center justify-center gap-2 rounded border border-line bg-paper px-4 py-2 text-sm font-medium text-ink transition hover:bg-paper-dim"
-            >
-              <GoogleIcon />
-              Masuk dengan Google
-            </button>
+                <button
+                  type="button"
+                  onClick={handleGoogleLogin}
+                  className="flex w-full items-center justify-center gap-2 rounded border border-line bg-paper px-4 py-2 text-sm font-medium text-ink transition hover:bg-paper-dim"
+                >
+                  <GoogleIcon />
+                  Masuk dengan Google
+                </button>
+              </>
+            )}
 
-            <p className="mt-6 text-center text-sm text-mute">
+            <p className="mt-4 text-center text-sm">
+              <Link href="/lupa-sandi" className="text-navy hover:underline">
+                Lupa kata sandi?
+              </Link>
+            </p>
+
+            <p className="mt-3 text-center text-sm text-mute">
               Belum punya akun?{" "}
               <Link href="/daftar" className="font-medium text-navy hover:underline">
                 Daftar

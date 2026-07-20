@@ -1,4 +1,6 @@
+import BannerStrip from "@/components/BannerStrip";
 import CategoryNav from "@/components/CategoryNav";
+import ArticleTeasers from "@/components/ArticleTeasers";
 import ProductGrid from "@/components/ProductGrid";
 import ProductToolbar from "@/components/ProductToolbar";
 import Pagination from "@/components/Pagination";
@@ -50,6 +52,8 @@ export default async function HomePage({
         </div>
       </section>
 
+      <BannerStrip />
+
       <CategoryNav />
 
       <section className="mx-auto max-w-6xl px-4 py-8">
@@ -66,6 +70,8 @@ export default async function HomePage({
           query={{ sort: sort !== "name" ? sort : undefined }}
         />
       </section>
+
+      <ArticleTeasers />
     </>
   );
 }

@@ -4,6 +4,8 @@ import { getProductBySlug } from "@/lib/products";
 import { formatIDR, ppnAmount, PPN_RATE } from "@/lib/format";
 import { categoryName } from "@/lib/categories";
 import AddToQuoteButton from "@/components/AddToQuoteButton";
+import AddToCartButton from "@/components/AddToCartButton";
+import { isInstantBuyable } from "@/lib/checkout";
 
 export async function generateMetadata({
   params,
@@ -26,6 +28,8 @@ export default async function ProductPage({
 
   const withPpn = product.price + ppnAmount(product.price);
   const inStock = product.stock > 0;
+  // Alat besar (di atas ambang) sengaja tidak bisa dibeli online — lihat lib/checkout.ts.
+  const buyable = isInstantBuyable(product.price);
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-6 sm:py-10">
@@ -117,18 +121,20 @@ export default async function ProductPage({
               name={product.name}
               price={product.price}
             />
-            <button
-              type="button"
-              disabled
-              className="inline-flex h-12 flex-1 items-center justify-center rounded-[var(--radius-card)] border border-[var(--color-navy)] px-5 text-sm font-medium text-[var(--color-navy)] transition disabled:cursor-not-allowed disabled:opacity-40"
-            >
-              Beli Satuan (segera)
-            </button>
+            {buyable && (
+              <AddToCartButton
+                slug={product.slug}
+                name={product.name}
+                price={product.price}
+                image={product.image}
+                disabled={!inStock}
+              />
+            )}
           </div>
           <p className="mt-3 text-xs text-[var(--color-mute)]">
-            Untuk pembelian instansi (PO/kontrak), tambahkan ke penawaran lalu
-            kirim permintaan — tim kami membalas dengan surat penawaran resmi.
-            Pembelian online satuan segera hadir.{" "}
+            {buyable
+              ? "Bisa dibeli langsung dan dibayar online, atau minta surat penawaran resmi kalau pembelian atas nama instansi (PO/kontrak)."
+              : "Alat ini dibeli lewat penawaran resmi: tambahkan ke penawaran, tim kami membalas dengan surat penawaran ber-PPN untuk dasar PO instansi."}{" "}
             <a
               href={`mailto:cs@boeminusantara.com?subject=${encodeURIComponent(
                 `Permintaan Penawaran — ${product.name}`,

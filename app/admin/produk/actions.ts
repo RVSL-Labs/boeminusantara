@@ -7,6 +7,16 @@ import {
   updateProduct,
   type AdminProductInput,
 } from "@/lib/admin/products";
+import { checkAdmin } from "@/lib/admin/auth";
+
+/**
+ * Server Action bisa dipanggil langsung lewat HTTP — jadi tiap action
+ * memeriksa admin sendiri, tidak menumpang pagar layout.
+ */
+async function requireAdmin() {
+  const gate = await checkAdmin();
+  if (!gate.ok) redirect("/masuk?next=/admin/produk");
+}
 
 export type ProductFormState = {
   ok: boolean;
@@ -70,6 +80,7 @@ export async function createProductAction(
   _prev: ProductFormState,
   formData: FormData,
 ): Promise<ProductFormState> {
+  await requireAdmin();
   const { input, fieldErrors } = parseForm(formData);
   if (fieldErrors) return { ok: false, fieldErrors };
 
@@ -96,6 +107,7 @@ export async function updateProductAction(
   _prev: ProductFormState,
   formData: FormData,
 ): Promise<ProductFormState> {
+  await requireAdmin();
   const { input, fieldErrors } = parseForm(formData);
   if (fieldErrors) return { ok: false, fieldErrors };
 

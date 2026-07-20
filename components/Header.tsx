@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import QuoteNavButton from "@/components/QuoteNavButton";
+import CartNavButton from "@/components/CartNavButton";
 
 export default function Header() {
   return (
@@ -58,18 +59,19 @@ export default function Header() {
 
         <nav className="flex shrink-0 items-center gap-1 text-sm">
           <Link
+            href="/edukasi"
+            className="hidden min-h-11 items-center rounded-[var(--radius-card)] px-3 text-[var(--color-ink-soft)] transition hover:text-[var(--color-navy)] md:inline-flex"
+          >
+            Edukasi
+          </Link>
+          <Link
             href="/masuk"
             className="hidden min-h-11 items-center rounded-[var(--radius-card)] px-3 text-[var(--color-ink-soft)] transition hover:text-[var(--color-navy)] sm:inline-flex"
           >
             Masuk
           </Link>
           <QuoteNavButton />
-          <Link
-            href="/keranjang"
-            className="inline-flex min-h-11 items-center rounded-[var(--radius-card)] bg-[var(--color-navy)] px-4 font-medium text-[var(--color-paper)] transition hover:bg-[var(--color-navy-deep)]"
-          >
-            Keranjang
-          </Link>
+          <CartNavButton />
         </nav>
       </div>
     </header>

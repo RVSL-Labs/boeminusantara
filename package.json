@@ -10,18 +10,20 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "next": "^15.5.4",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
+    "@supabase/ssr": "^0.5.2",
     "@supabase/supabase-js": "^2.48.1",
-    "@supabase/ssr": "^0.5.2"
+    "next": "^15.5.4",
+    "nodemailer": "^9.0.3",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
   },
   "devDependencies": {
-    "typescript": "^5.7.3",
+    "@tailwindcss/postcss": "^4.1.0",
     "@types/node": "^24.0.0",
+    "@types/nodemailer": "^6.4.24",
     "@types/react": "^19.1.0",
     "@types/react-dom": "^19.1.0",
     "tailwindcss": "^4.1.0",
-    "@tailwindcss/postcss": "^4.1.0"
+    "typescript": "^5.7.3"
   }
 }

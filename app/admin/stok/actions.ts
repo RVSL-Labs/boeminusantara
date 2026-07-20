@@ -1,10 +1,21 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 import {
   recordStockMovement,
   type MovementType,
 } from "@/lib/admin/stock";
+import { checkAdmin } from "@/lib/admin/auth";
+
+/**
+ * Server Action bisa dipanggil langsung lewat HTTP — jadi tiap action
+ * memeriksa admin sendiri, tidak menumpang pagar layout.
+ */
+async function requireAdmin() {
+  const gate = await checkAdmin();
+  if (!gate.ok) redirect("/masuk?next=/admin/stok");
+}
 
 export type StockFormState = {
   ok: boolean;
@@ -20,6 +31,7 @@ export async function recordStockMovementAction(
   _prev: StockFormState,
   formData: FormData,
 ): Promise<StockFormState> {
+  await requireAdmin();
   const productId = String(formData.get("productId") ?? "").trim();
   const typeRaw = String(formData.get("type") ?? "").trim();
   const qtyRaw = String(formData.get("qty") ?? "").trim();
