@@ -4,6 +4,9 @@ import { getPortalUser, getMyQuote } from "@/lib/portal";
 import { listOffers, hargaBerlaku, negosiasiSelesai } from "@/lib/admin/negotiation";
 import { formatIDR } from "@/lib/format";
 import { PortalNegotiation } from "./_components/PortalNegotiation";
+import { PenerimaanBarang } from "./_components/PenerimaanBarang";
+import { listLampiran, getPengiriman } from "@/lib/admin/attachments";
+import { tandaiDiterimaAction } from "../terima-actions";
 import { portalNegotiateAction } from "../actions";
 
 export const metadata = { title: "Rincian Penawaran" };
@@ -21,7 +24,11 @@ export default async function PortalQuoteDetail({
   const quote = await getMyQuote(user, id);
   if (!quote) notFound();
 
-  const offers = await listOffers(id);
+  const [offers, lampiran, pengiriman] = await Promise.all([
+    listOffers(id),
+    listLampiran(id),
+    getPengiriman(id),
+  ]);
   const berlaku = hargaBerlaku(offers);
   const selesai = negosiasiSelesai(offers);
   const terakhir = offers[offers.length - 1];
@@ -105,6 +112,20 @@ export default async function PortalQuoteDetail({
           <span className="font-medium text-[var(--color-ink)]">Catatan Anda: </span>
           {quote.note}
         </p>
+      )}
+
+      {(pengiriman || lampiran.length > 0) && (
+        <PenerimaanBarang
+          action={tandaiDiterimaAction.bind(null, id)}
+          courier={pengiriman?.courier ?? ""}
+          trackingNumber={pengiriman?.trackingNumber ?? ""}
+          shippedAt={pengiriman?.shippedAt ?? null}
+          receivedAt={pengiriman?.receivedAt ?? null}
+          receivedBy={pengiriman?.receivedBy ?? null}
+          lampiran={lampiran
+            .filter((l) => l.kind === "foto_kirim" || l.kind === "faktur_pajak" || l.kind === "foto_bast")
+            .map((l) => ({ id: l.id, kind: l.kind, filename: l.filename, uploadedAt: l.uploadedAt }))}
+        />
       )}
 
       <PortalNegotiation

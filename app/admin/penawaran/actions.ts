@@ -12,6 +12,13 @@ import {
   DocumentError,
   type JenisLanjutan,
 } from "@/lib/admin/documents";
+import {
+  unggahLampiran,
+  simpanPengiriman,
+  LampiranError,
+  JENIS_LAMPIRAN,
+  type JenisLampiran,
+} from "@/lib/admin/attachments";
 
 /**
  * Server Action bisa dipanggil langsung lewat HTTP — jadi tiap action
@@ -225,4 +232,71 @@ export async function terbitkanDokumenAction(
     if (e instanceof DocumentError) return { ok: false, error: e.message };
     return { ok: false, error: "Gagal menerbitkan dokumen. Coba lagi." };
   }
+}
+
+/* ============ LAMPIRAN & PENGIRIMAN ============ */
+
+export type LampiranState = { ok: boolean; error?: string; success?: string };
+
+export async function unggahLampiranAction(
+  requestId: string,
+  _prev: LampiranState,
+  formData: FormData,
+): Promise<LampiranState> {
+  const gate = await checkAdmin();
+  if (!gate.ok) redirect(`/masuk?next=/admin/penawaran/${requestId}`);
+
+  const kind = String(formData.get("kind") ?? "");
+  if (!JENIS_LAMPIRAN.includes(kind as JenisLampiran))
+    return { ok: false, error: "Jenis berkas tidak dikenal." };
+
+  const file = formData.get("berkas");
+  if (!(file instanceof File)) return { ok: false, error: "Berkas belum dipilih." };
+
+  try {
+    await unggahLampiran({
+      requestId,
+      kind: kind as JenisLampiran,
+      file,
+      caption: String(formData.get("caption") ?? "").trim() || null,
+      uploadedBy: gate.email,
+    });
+  } catch (e) {
+    if (e instanceof LampiranError) return { ok: false, error: e.message };
+    return { ok: false, error: "Gagal mengunggah. Coba lagi." };
+  }
+
+  revalidatePath(`/admin/penawaran/${requestId}`);
+  revalidatePath("/portal/dokumen");
+  return { ok: true, success: "Berkas tersimpan." };
+}
+
+export async function simpanPengirimanAction(
+  requestId: string,
+  _prev: LampiranState,
+  formData: FormData,
+): Promise<LampiranState> {
+  const gate = await checkAdmin();
+  if (!gate.ok) redirect(`/masuk?next=/admin/penawaran/${requestId}`);
+
+  const courier = String(formData.get("courier") ?? "").trim();
+  const tracking = String(formData.get("trackingNumber") ?? "").trim();
+  if (!courier && !tracking)
+    return { ok: false, error: "Isi ekspedisi atau nomor resi." };
+
+  try {
+    await simpanPengiriman({
+      requestId,
+      courier,
+      trackingNumber: tracking,
+      note: String(formData.get("note") ?? "").trim() || null,
+    });
+  } catch (e) {
+    if (e instanceof LampiranError) return { ok: false, error: e.message };
+    return { ok: false, error: "Gagal menyimpan pengiriman." };
+  }
+
+  revalidatePath(`/admin/penawaran/${requestId}`);
+  revalidatePath("/portal/pengiriman");
+  return { ok: true, success: "Data pengiriman tersimpan." };
 }

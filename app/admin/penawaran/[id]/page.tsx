@@ -8,8 +8,12 @@ import {
   negotiateAction,
   terbitkanSuratPesananAction,
   terbitkanDokumenAction,
+  unggahLampiranAction,
+  simpanPengirimanAction,
 } from "../actions";
 import { listDocumentsForRequest } from "@/lib/admin/documents";
+import { listLampiran, getPengiriman } from "@/lib/admin/attachments";
+import { LampiranPanel } from "./_components/LampiranPanel";
 import { TerbitkanSurat } from "./_components/TerbitkanSurat";
 import { NegotiationPanel } from "./_components/NegotiationPanel";
 import { ApproveForm } from "../_components/ApproveForm";
@@ -33,10 +37,12 @@ export default async function QuoteDetailPage({
   const action = approveQuoteAction.bind(null, id);
 
   // Negosiasi: riwayat ronde + harga yang berlaku sekarang.
-  const [offers, rincian, dokumen] = await Promise.all([
+  const [offers, rincian, dokumen, lampiran, pengiriman] = await Promise.all([
     listOffers(id),
     listRequestItems(id),
     listDocumentsForRequest(id),
+    listLampiran(id),
+    getPengiriman(id),
   ]);
   const berlaku = hargaBerlaku(offers);
   const selesai = negosiasiSelesai(offers);
@@ -210,6 +216,32 @@ export default async function QuoteDetailPage({
               issuedAt: d.issuedAt,
               issuedBy: d.issuedBy,
             }))}
+          />
+
+          <LampiranPanel
+            aksiUnggah={unggahLampiranAction.bind(null, id)}
+            aksiPengiriman={simpanPengirimanAction.bind(null, id)}
+            lampiran={lampiran.map((l) => ({
+              id: l.id,
+              kind: l.kind,
+              filename: l.filename,
+              sizeBytes: l.sizeBytes,
+              sha256: l.sha256,
+              caption: l.caption,
+              uploadedBy: l.uploadedBy,
+              uploadedAt: l.uploadedAt,
+            }))}
+            pengiriman={
+              pengiriman
+                ? {
+                    courier: pengiriman.courier,
+                    trackingNumber: pengiriman.trackingNumber,
+                    shippedAt: pengiriman.shippedAt,
+                    receivedAt: pengiriman.receivedAt,
+                    receivedBy: pengiriman.receivedBy,
+                  }
+                : null
+            }
           />
         </div>
 
