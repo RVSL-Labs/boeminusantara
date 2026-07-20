@@ -11,8 +11,12 @@ export const metadata: Metadata = {
 };
 
 const MENU = [
-  { href: "/portal", label: "Transaksi Saya" },
+  { href: "/portal", label: "Beranda" },
+  { href: "/portal/transaksi", label: "Transaksi" },
   { href: "/portal/dokumen", label: "Dokumen" },
+  { href: "/portal/pengiriman", label: "Pengiriman" },
+  { href: "/portal/profil", label: "Profil Instansi" },
+  { href: "/", label: "Katalog" },
 ];
 
 /**

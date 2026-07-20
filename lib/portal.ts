@@ -208,3 +208,102 @@ export async function pastikanMilikSaya(
 ): Promise<boolean> {
   return (await getMyQuote(user, quoteId)) !== null;
 }
+
+/* ============ PROFIL INSTANSI ============ */
+
+export type BuyerProfile = {
+  institution: string;
+  npwp: string;
+  address: string;
+  city: string;
+  postalCode: string;
+  phone: string;
+  officerName: string;
+  officerNip: string;
+  officerRole: string;
+  budgetYear: number | null;
+  budgetSource: string;
+};
+
+export const PROFIL_KOSONG: BuyerProfile = {
+  institution: "",
+  npwp: "",
+  address: "",
+  city: "",
+  postalCode: "",
+  phone: "",
+  officerName: "",
+  officerNip: "",
+  officerRole: "",
+  budgetYear: null,
+  budgetSource: "",
+};
+
+export async function getMyProfile(user: SessionUser): Promise<BuyerProfile> {
+  const sb = getAdminSupabase();
+  if (!sb) return PROFIL_KOSONG;
+
+  const { data, error } = await sb
+    .from("buyer_profiles")
+    .select("*")
+    .eq("user_id", user.id)
+    .maybeSingle();
+
+  if (error || !data) return PROFIL_KOSONG;
+
+  const r = data as Record<string, string | number | null>;
+  return {
+    institution: String(r.institution ?? ""),
+    npwp: String(r.npwp ?? ""),
+    address: String(r.address ?? ""),
+    city: String(r.city ?? ""),
+    postalCode: String(r.postal_code ?? ""),
+    phone: String(r.phone ?? ""),
+    officerName: String(r.officer_name ?? ""),
+    officerNip: String(r.officer_nip ?? ""),
+    officerRole: String(r.officer_role ?? ""),
+    budgetYear: r.budget_year ? Number(r.budget_year) : null,
+    budgetSource: String(r.budget_source ?? ""),
+  };
+}
+
+export async function saveMyProfile(
+  user: SessionUser,
+  p: BuyerProfile,
+): Promise<void> {
+  const sb = getAdminSupabase();
+  if (!sb) throw new Error("Database belum terhubung.");
+
+  // user_id SELALU dari session — tidak pernah dari kiriman formulir.
+  const { error } = await sb.from("buyer_profiles").upsert({
+    user_id: user.id,
+    institution: p.institution,
+    npwp: p.npwp,
+    address: p.address,
+    city: p.city,
+    postal_code: p.postalCode,
+    phone: p.phone,
+    officer_name: p.officerName,
+    officer_nip: p.officerNip,
+    officer_role: p.officerRole,
+    budget_year: p.budgetYear,
+    budget_source: p.budgetSource,
+    updated_at: new Date().toISOString(),
+  });
+  if (error) throw new Error(error.message);
+}
+
+/** Berapa persen profil terisi — dipakai pengingat di beranda portal. */
+export function kelengkapanProfil(p: BuyerProfile): number {
+  const wajib = [
+    p.institution,
+    p.npwp,
+    p.address,
+    p.city,
+    p.phone,
+    p.officerName,
+    p.officerNip,
+  ];
+  const terisi = wajib.filter((v) => v.trim().length > 0).length;
+  return Math.round((terisi / wajib.length) * 100);
+}
