@@ -65,6 +65,12 @@ export default function Header() {
             Edukasi
           </Link>
           <Link
+            href="/portal"
+            className="hidden min-h-11 items-center rounded-[var(--radius-card)] px-3 text-[var(--color-ink-soft)] transition hover:text-[var(--color-navy)] md:inline-flex"
+          >
+            Portal Klien
+          </Link>
+          <Link
             href="/masuk"
             className="hidden min-h-11 items-center rounded-[var(--radius-card)] px-3 text-[var(--color-ink-soft)] transition hover:text-[var(--color-navy)] sm:inline-flex"
           >

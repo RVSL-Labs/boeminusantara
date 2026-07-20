@@ -12,8 +12,11 @@ export async function middleware(request: NextRequest) {
   let supabaseResponse = NextResponse.next({ request });
 
   if (!url || !key) {
-    // Tanpa Supabase, session tidak bisa diverifikasi → /admin ditutup rapat.
-    if (request.nextUrl.pathname.startsWith("/admin")) {
+    // Tanpa Supabase, session tidak bisa diverifikasi → area berlogin ditutup.
+    if (
+      request.nextUrl.pathname.startsWith("/admin") ||
+      request.nextUrl.pathname.startsWith("/portal")
+    ) {
       return new NextResponse("Admin dinonaktifkan: autentikasi belum dikonfigurasi.", {
         status: 503,
       });
@@ -52,7 +55,12 @@ export async function middleware(request: NextRequest) {
   //
   // Lapis-2 di app/admin/layout.tsx yang memeriksa hak akses sesungguhnya
   // (pemilik dari env + staf dari tabel admin_users), fail-closed.
-  if (request.nextUrl.pathname.startsWith("/admin")) {
+  // Portal klien: cukup sudah login. Yang membatasi bukan siapa dia, tapi data
+  // mana yang tampil — penyaringan per pemakai ada di lib/portal.ts.
+  if (
+    request.nextUrl.pathname.startsWith("/admin") ||
+    request.nextUrl.pathname.startsWith("/portal")
+  ) {
     if (!user) {
       const loginUrl = request.nextUrl.clone();
       loginUrl.pathname = "/masuk";
