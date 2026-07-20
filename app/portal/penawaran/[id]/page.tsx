@@ -6,6 +6,8 @@ import { formatIDR } from "@/lib/format";
 import { PortalNegotiation } from "./_components/PortalNegotiation";
 import { PenerimaanBarang } from "./_components/PenerimaanBarang";
 import { listLampiran, getPengiriman } from "@/lib/admin/attachments";
+import { listDocumentsForRequest } from "@/lib/admin/documents";
+import { PerjalananPengadaan, tahapSekarang } from "@/components/PerjalananPengadaan";
 import { tandaiDiterimaAction } from "../terima-actions";
 import { portalNegotiateAction } from "../actions";
 
@@ -24,11 +26,21 @@ export default async function PortalQuoteDetail({
   const quote = await getMyQuote(user, id);
   if (!quote) notFound();
 
-  const [offers, lampiran, pengiriman] = await Promise.all([
+  const [offers, lampiran, pengiriman, dokumen] = await Promise.all([
     listOffers(id),
     listLampiran(id),
     getPengiriman(id),
+    listDocumentsForRequest(id),
   ]);
+
+  const jenisDok = new Set(dokumen.filter((d) => !d.voidedAt).map((d) => d.docType));
+  const tahap = tahapSekarang({
+    status: quote.status,
+    adaSuratPesanan: jenisDok.has("SP"),
+    adaResi: Boolean(pengiriman?.trackingNumber || pengiriman?.courier),
+    sudahDiterima: Boolean(pengiriman?.receivedAt),
+    adaKwitansi: jenisDok.has("KW"),
+  });
   const berlaku = hargaBerlaku(offers);
   const selesai = negosiasiSelesai(offers);
   const terakhir = offers[offers.length - 1];
@@ -71,6 +83,13 @@ export default async function PortalQuoteDetail({
           })}
         </p>
       </header>
+
+      <section className="rounded border border-[var(--color-line)] bg-[var(--color-paper)] p-5">
+        <p className="mb-3 text-xs uppercase tracking-wide text-[var(--color-mute)]">
+          Posisi pengadaan
+        </p>
+        <PerjalananPengadaan tahap={tahap} />
+      </section>
 
       <section className="overflow-x-auto rounded border border-[var(--color-line)] bg-[var(--color-paper)]">
         <table className="w-full min-w-[30rem] text-sm">
