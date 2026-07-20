@@ -21,8 +21,21 @@ export default function PenawaranPage() {
   const [note, setNote] = useState("");
   const [submit, setSubmit] = useState<SubmitState>({ status: "idle" });
 
+  /**
+   * Harga yang diajukan pembeli, per unit, dikunci per slug barang.
+   * Opsional — dikosongkan berarti menyerahkan harga sepenuhnya ke Boemi.
+   */
+  const [hargaAjuan, setHargaAjuan] = useState<Record<string, number>>({});
+
   const ppn = ppnAmount(subtotal);
   const total = subtotal + ppn;
+
+  // Total versi pembeli: pakai harga ajuan bila diisi, kalau tidak harga katalog.
+  const totalAjuan = items.reduce(
+    (s, it) => s + (hargaAjuan[it.slug] || it.price) * it.qty,
+    0,
+  );
+  const adaAjuan = items.some((it) => hargaAjuan[it.slug] > 0);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -47,10 +60,13 @@ export default function PenawaranPage() {
           institution: institution.trim() || undefined,
           note: note.trim() || undefined,
           items: items.map((it) => ({
-            productId: it.slug,
+            // Kirim slug saja. Harga & nama diambil ulang dari katalog di server —
+            // angka dari browser tidak dipakai sebagai harga resmi.
+            slug: it.slug,
             name: it.name,
             price: it.price,
             qty: it.qty,
+            buyerPrice: hargaAjuan[it.slug] || undefined,
           })),
         }),
       });
@@ -201,8 +217,34 @@ export default function PenawaranPage() {
                 </button>
               </div>
 
+              {/* Harga yang diajukan pembeli — inti tawar-menawar */}
+              <div className="w-40">
+                <label
+                  htmlFor={`ajuan-${it.slug}`}
+                  className="block text-[11px] text-[var(--color-mute)]"
+                >
+                  Harga ajuan Anda
+                </label>
+                <input
+                  id={`ajuan-${it.slug}`}
+                  type="number"
+                  min={0}
+                  step={1000}
+                  inputMode="numeric"
+                  placeholder={String(it.price)}
+                  value={hargaAjuan[it.slug] ?? ""}
+                  onChange={(e) =>
+                    setHargaAjuan((h) => ({
+                      ...h,
+                      [it.slug]: Math.max(0, Number(e.target.value) || 0),
+                    }))
+                  }
+                  className="mt-0.5 h-9 w-full rounded-[var(--radius-card)] border border-[var(--color-line)] bg-[var(--color-paper)] px-2 text-right text-sm tabular-nums outline-none focus:border-[var(--color-navy)]"
+                />
+              </div>
+
               <div className="w-28 text-right text-sm font-medium">
-                {formatIDR(it.price * it.qty)}
+                {formatIDR((hargaAjuan[it.slug] || it.price) * it.qty)}
               </div>
 
               <button
@@ -235,9 +277,21 @@ export default function PenawaranPage() {
               <span className="font-semibold">Estimasi total</span>
               <span className="font-semibold">{formatIDR(total)}</span>
             </div>
+            {adaAjuan && (
+              <div className="mt-3 flex items-center justify-between border-t border-[var(--color-line)] pt-3 text-sm">
+                <span className="text-[var(--color-navy)]">
+                  Total harga ajuan Anda
+                </span>
+                <span className="font-semibold text-[var(--color-navy)]">
+                  {formatIDR(totalAjuan)}
+                </span>
+              </div>
+            )}
+
             <p className="mt-2 text-[11px] leading-relaxed text-[var(--color-mute)]">
               Estimasi. Harga final mengikuti surat penawaran resmi (dapat
-              termasuk ongkir & syarat instansi).
+              termasuk ongkir &amp; syarat instansi). Harga ajuan Anda kami
+              pertimbangkan dan dibalas dengan harga dari kami.
             </p>
           </div>
 
