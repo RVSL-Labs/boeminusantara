@@ -6,6 +6,7 @@ import { approveQuote, setQuoteStatus } from "@/lib/admin/quotes";
 import { checkAdmin } from "@/lib/admin/auth";
 import { addOffer, NegotiationError } from "@/lib/admin/negotiation";
 import { listRequestItems } from "@/lib/admin/quotes";
+import { issueSuratPesanan, DocumentError } from "@/lib/admin/documents";
 
 /**
  * Server Action bisa dipanggil langsung lewat HTTP — jadi tiap action
@@ -157,4 +158,37 @@ export async function negotiateAction(
   revalidatePath(`/admin/penawaran/${requestId}`);
   revalidatePath("/admin/penawaran");
   return { ok: true };
+}
+
+/* ============ PENERBITAN DOKUMEN ============ */
+
+export type TerbitState = { ok: boolean; error?: string; docId?: string; nomor?: string };
+
+/** Terbitkan Surat Pesanan dari harga yang sudah disepakati. */
+export async function terbitkanSuratPesananAction(
+  requestId: string,
+  _prev: TerbitState,
+  formData: FormData,
+): Promise<TerbitState> {
+  const gate = await checkAdmin();
+  if (!gate.ok) redirect(`/masuk?next=/admin/penawaran/${requestId}`);
+
+  const pph = Number(String(formData.get("pphRate") ?? "0")) || 0;
+  const catatan = String(formData.get("catatanSurat") ?? "").trim() || null;
+
+  try {
+    const hasil = await issueSuratPesanan({
+      requestId,
+      issuedBy: gate.email,
+      pphRate: pph,
+      catatan,
+    });
+    revalidatePath(`/admin/penawaran/${requestId}`);
+    revalidatePath("/admin/penawaran");
+    revalidatePath("/portal/dokumen");
+    return { ok: true, docId: hasil.id, nomor: hasil.nomor };
+  } catch (e) {
+    if (e instanceof DocumentError) return { ok: false, error: e.message };
+    return { ok: false, error: "Gagal menerbitkan surat. Coba lagi." };
+  }
 }

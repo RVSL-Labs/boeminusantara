@@ -3,7 +3,9 @@ import { notFound } from "next/navigation";
 import { getQuote, listRequestItems } from "@/lib/admin/quotes";
 import { formatIDR } from "@/lib/format";
 import { listOffers, hargaBerlaku, negosiasiSelesai } from "@/lib/admin/negotiation";
-import { approveQuoteAction, negotiateAction } from "../actions";
+import { approveQuoteAction, negotiateAction, terbitkanSuratPesananAction } from "../actions";
+import { listDocumentsForRequest } from "@/lib/admin/documents";
+import { TerbitkanSurat } from "./_components/TerbitkanSurat";
 import { NegotiationPanel } from "./_components/NegotiationPanel";
 import { ApproveForm } from "../_components/ApproveForm";
 import { StatusBadge } from "../_components/StatusBadge";
@@ -26,7 +28,11 @@ export default async function QuoteDetailPage({
   const action = approveQuoteAction.bind(null, id);
 
   // Negosiasi: riwayat ronde + harga yang berlaku sekarang.
-  const [offers, rincian] = await Promise.all([listOffers(id), listRequestItems(id)]);
+  const [offers, rincian, dokumen] = await Promise.all([
+    listOffers(id),
+    listRequestItems(id),
+    listDocumentsForRequest(id),
+  ]);
   const berlaku = hargaBerlaku(offers);
   const selesai = negosiasiSelesai(offers);
 
@@ -187,6 +193,17 @@ export default async function QuoteDetailPage({
               selesai={selesai}
             />
           </div>
+
+          <TerbitkanSurat
+            action={terbitkanSuratPesananAction.bind(null, id)}
+            bisaTerbit={selesai === "agreed"}
+            dokumen={dokumen.map((d) => ({
+              id: d.id,
+              number: d.number,
+              issuedAt: d.issuedAt,
+              issuedBy: d.issuedBy,
+            }))}
+          />
         </div>
 
         {/* Kanan: ACC */}
