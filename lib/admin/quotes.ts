@@ -9,6 +9,17 @@ import { getAdminSupabase } from "@/lib/admin/supabase-admin";
 
 const API_URL = process.env.BOEMI_API_URL || "http://localhost:4700";
 
+/**
+ * Header kunci internal. boemi-api dilayani publik lewat nginx /api, jadi
+ * endpoint yang mengembalikan data pelanggan (list/detail penawaran, approve,
+ * status) dikunci: hanya server ini yang tahu kuncinya. Tanpa ini, siapa pun
+ * bisa memanggil GET /api/quotes dan menarik nama+email+telepon semua pemohon.
+ */
+const internalHeaders = (extra: Record<string, string> = {}) => {
+  const key = process.env.INTERNAL_API_KEY;
+  return key ? { ...extra, "x-internal-key": key } : extra;
+};
+
 export type QuoteItem = {
   id: string;
   name: string;
@@ -50,7 +61,10 @@ export type Quotation = {
 
 async function apiGet<T>(path: string): Promise<T | null> {
   try {
-    const res = await fetch(`${API_URL}${path}`, { cache: "no-store" });
+    const res = await fetch(`${API_URL}${path}`, {
+      cache: "no-store",
+      headers: internalHeaders(),
+    });
     if (!res.ok) return null;
     return (await res.json()) as T;
   } catch {
@@ -112,7 +126,7 @@ export async function approveQuote(
       `${API_URL}/quotes/${encodeURIComponent(requestId)}/approve`,
       {
         method: "POST",
-        headers: { "content-type": "application/json" },
+        headers: internalHeaders({ "content-type": "application/json" }),
         body: JSON.stringify(input),
         cache: "no-store",
       },
@@ -141,7 +155,7 @@ export async function setQuoteStatus(
       `${API_URL}/quotes/${encodeURIComponent(requestId)}/status`,
       {
         method: "PATCH",
-        headers: { "content-type": "application/json" },
+        headers: internalHeaders({ "content-type": "application/json" }),
         body: JSON.stringify({ status }),
         cache: "no-store",
       },
