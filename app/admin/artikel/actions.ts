@@ -10,6 +10,7 @@ import {
   type ArticleInput,
 } from "@/lib/admin/content";
 import { checkAdmin } from "@/lib/admin/auth";
+import { recordAudit } from "@/lib/audit";
 
 export type ArticleFormState = {
   ok: boolean;
@@ -87,6 +88,7 @@ export async function createArticleAction(
 
   try {
     await createArticle(input);
+    await recordAudit({ action: "artikel.tambah", target: input.title, detail: { status: input.status } });
   } catch (e) {
     return { ok: false, error: e instanceof Error ? e.message : "Gagal menyimpan." };
   }
@@ -109,6 +111,7 @@ export async function updateArticleAction(
 
   try {
     await updateArticle(id, input);
+    await recordAudit({ action: "artikel.ubah", target: input.title, detail: { status: input.status } });
   } catch (e) {
     return { ok: false, error: e instanceof Error ? e.message : "Gagal menyimpan." };
   }
@@ -125,6 +128,7 @@ export async function deleteArticleAction(formData: FormData): Promise<void> {
   if (!id) return;
 
   await deleteArticle(id);
+  await recordAudit({ action: "artikel.hapus", target: id });
   revalidatePath("/admin/artikel");
   revalidatePath("/edukasi");
 }

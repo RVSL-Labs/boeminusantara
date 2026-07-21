@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { addStaff, removeStaff } from "@/lib/admin/staff";
 import { checkAdmin } from "@/lib/admin/auth";
+import { recordAudit } from "@/lib/audit";
 
 export type StaffFormState = { ok: boolean; error?: string; success?: string };
 
@@ -29,6 +30,7 @@ export async function addStaffAction(
 
   try {
     await addStaff({ email, name, addedBy: gate.ok ? gate.email : "" });
+    await recordAudit({ action: "admin.tambah", target: email, detail: { nama: name } });
   } catch (e) {
     return { ok: false, error: e instanceof Error ? e.message : "Gagal menambah admin." };
   }
@@ -50,5 +52,6 @@ export async function removeStaffAction(formData: FormData): Promise<void> {
   if (gate.ok && email.toLowerCase() === gate.email.toLowerCase()) return;
 
   await removeStaff(email);
+  await recordAudit({ action: "admin.cabut", target: email });
   revalidatePath("/admin/pengguna");
 }

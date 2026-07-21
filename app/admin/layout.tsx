@@ -26,7 +26,7 @@ export default async function AdminLayout({ children }: { children: ReactNode })
 
   return (
     <div className="flex min-h-screen bg-[var(--color-paper-dim)] text-[var(--color-ink)]">
-      <AdminSidebar />
+      <AdminSidebar isOwner={gate.isOwner} />
 
       <div className="flex min-w-0 flex-1 flex-col">
         {/* Bar identitas admin + keluar */}

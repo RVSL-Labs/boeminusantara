@@ -12,6 +12,7 @@ import {
   DocumentError,
   type JenisLanjutan,
 } from "@/lib/admin/documents";
+import { recordAudit } from "@/lib/audit";
 import {
   unggahLampiran,
   simpanPengiriman,
@@ -87,6 +88,7 @@ export async function approveQuoteAction(
 
   revalidatePath("/admin/penawaran");
   revalidatePath(`/admin/penawaran/${requestId}`);
+  await recordAudit({ action: "penawaran.acc", target: requestId, detail: { diskon: discount, ppn: ppnEnabled } });
   redirect(`/admin/penawaran/${requestId}/surat`);
 }
 
@@ -103,6 +105,7 @@ export async function setStatusAction(
     status === "pending"
   ) {
     await setQuoteStatus(requestId, status);
+    await recordAudit({ action: "penawaran.status", target: requestId, detail: { status } });
     revalidatePath("/admin/penawaran");
     revalidatePath(`/admin/penawaran/${requestId}`);
   }
@@ -195,6 +198,7 @@ export async function terbitkanSuratPesananAction(
       pphRate: pph,
       catatan,
     });
+    await recordAudit({ action: "dokumen.terbit", target: hasil.nomor, detail: { jenis: "SP", requestId } });
     revalidatePath(`/admin/penawaran/${requestId}`);
     revalidatePath("/admin/penawaran");
     revalidatePath("/portal/dokumen");
@@ -225,6 +229,7 @@ export async function terbitkanDokumenAction(
       issuedBy: gate.email,
       catatan: String(formData.get("catatanSurat") ?? "").trim() || null,
     });
+    await recordAudit({ action: "dokumen.terbit", target: hasil.nomor, detail: { jenis, requestId } });
     revalidatePath(`/admin/penawaran/${requestId}`);
     revalidatePath("/portal/dokumen");
     return { ok: true, docId: hasil.id, nomor: hasil.nomor };

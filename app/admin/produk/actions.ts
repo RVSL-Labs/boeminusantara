@@ -8,6 +8,7 @@ import {
   type AdminProductInput,
 } from "@/lib/admin/products";
 import { checkAdmin } from "@/lib/admin/auth";
+import { recordAudit } from "@/lib/audit";
 
 /**
  * Server Action bisa dipanggil langsung lewat HTTP — jadi tiap action
@@ -97,6 +98,7 @@ export async function createProductAction(
     return { ok: false, error: res.error };
   }
 
+  await recordAudit({ action: "produk.tambah", target: input!.name, detail: { slug: input!.slug, harga: input!.price } });
   revalidatePath("/admin/produk");
   revalidatePath("/admin");
   redirect("/admin/produk");
@@ -124,6 +126,7 @@ export async function updateProductAction(
     return { ok: false, error: res.error };
   }
 
+  await recordAudit({ action: "produk.ubah", target: input!.name, detail: { id, harga: input!.price, stok: input!.stock, aktif: input!.active } });
   revalidatePath("/admin/produk");
   revalidatePath(`/admin/produk/${id}`);
   revalidatePath("/admin");

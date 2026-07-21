@@ -7,6 +7,7 @@ import {
   type MovementType,
 } from "@/lib/admin/stock";
 import { checkAdmin } from "@/lib/admin/auth";
+import { recordAudit } from "@/lib/audit";
 
 /**
  * Server Action bisa dipanggil langsung lewat HTTP — jadi tiap action
@@ -71,6 +72,11 @@ export async function recordStockMovementAction(
     return { ok: false, error: res.error };
   }
 
+  await recordAudit({
+    action: "stok." + typeRaw,
+    target: productId,
+    detail: { qty, ref: ref || null },
+  });
   revalidatePath("/admin/stok");
   revalidatePath("/admin/produk");
   revalidatePath("/admin");

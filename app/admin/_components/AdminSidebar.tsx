@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-type NavItem = { href: string; label: string; exact?: boolean };
+type NavItem = { href: string; label: string; exact?: boolean; owner?: boolean };
 
 const NAV: NavItem[] = [
   { href: "/admin", label: "Dashboard", exact: true },
@@ -19,9 +19,11 @@ const NAV: NavItem[] = [
   { href: "/admin/perusahaan", label: "Identitas Perusahaan" },
   { href: "/admin/panduan", label: "Panduan" },
   { href: "/admin/pengaturan", label: "Pengaturan" },
+  // Hanya tampil untuk pemilik. Aksesnya tetap dijaga server-side di halamannya.
+  { href: "/admin/pemilik", label: "🔒 Ruang Pemilik", owner: true },
 ];
 
-export function AdminSidebar() {
+export function AdminSidebar({ isOwner = false }: { isOwner?: boolean }) {
   const pathname = usePathname();
 
   const isActive = (item: NavItem) =>
@@ -45,7 +47,7 @@ export function AdminSidebar() {
       {/* Navigasi */}
       <nav className="flex-1 overflow-y-auto px-3 py-4">
         <ul className="space-y-1">
-          {NAV.map((item) => {
+          {NAV.filter((item) => !item.owner || isOwner).map((item) => {
             const active = isActive(item);
             return (
               <li key={item.href}>
