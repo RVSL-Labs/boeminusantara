@@ -3,6 +3,7 @@ import { getPortalUser, listMyQuotes, listMyOrders, getMyProfile } from "@/lib/p
 import { listDocumentsForRequest } from "@/lib/admin/documents";
 import { getPengiriman } from "@/lib/admin/attachments";
 import { tahapSekarang } from "@/components/PerjalananPengadaan";
+import { assetCareSummary } from "@/lib/assets";
 import { BerandaContent, type BarisBerjalan } from "./beranda-content";
 
 export const metadata = { title: "Beranda" };
@@ -12,10 +13,11 @@ const DOK_WAJIB = ["SP", "INV", "SJ", "BAST", "KW"];
 
 export default async function PortalHome() {
   const user = (await getPortalUser())!;
-  const [quotes, orders, profile] = await Promise.all([
+  const [quotes, orders, profile, aset] = await Promise.all([
     listMyQuotes(user),
     listMyOrders(user),
     getMyProfile(user),
+    assetCareSummary(user),
   ]);
 
   // Yang masih berjalan saja — transaksi selesai tidak perlu memenuhi beranda.
@@ -65,6 +67,7 @@ export default async function PortalHome() {
         orders={orders}
         profile={profile}
         berjalan={berjalan}
+        aset={aset}
       />
 
       {quotes.length === 0 && orders.length === 0 && (

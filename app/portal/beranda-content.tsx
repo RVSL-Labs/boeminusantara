@@ -26,11 +26,13 @@ export function BerandaContent({
   orders,
   profile,
   berjalan,
+  aset,
 }: {
   quotes: PortalQuote[];
   orders: PortalOrder[];
   profile: BuyerProfile;
   berjalan: BarisBerjalan[];
+  aset: { total: number; lewat: number; segera: number; garansiHabisSegera: number };
 }) {
   const persen = kelengkapanProfil(profile);
 
@@ -58,6 +60,27 @@ export function BerandaContent({
     tugas.push({
       teks: `Harga ${q.code} sudah disepakati — menunggu surat pesanan dari Boemi`,
       href: `/portal/penawaran/${q.id}`,
+      mendesak: false,
+    });
+  }
+  if (aset.lewat > 0) {
+    tugas.push({
+      teks: `${aset.lewat} alat sudah lewat jadwal perawatan`,
+      href: "/portal/aset",
+      mendesak: true,
+    });
+  }
+  if (aset.segera > 0) {
+    tugas.push({
+      teks: `${aset.segera} alat perlu diservis dalam 30 hari`,
+      href: "/portal/aset",
+      mendesak: false,
+    });
+  }
+  if (aset.garansiHabisSegera > 0) {
+    tugas.push({
+      teks: `Garansi ${aset.garansiHabisSegera} alat berakhir dalam 60 hari`,
+      href: "/portal/aset",
       mendesak: false,
     });
   }
@@ -91,6 +114,15 @@ export function BerandaContent({
       nilai: formatIDR(nilaiTotal),
       href: "/portal/dokumen",
       ket: profile.budgetYear ? `Tahun anggaran ${profile.budgetYear}` : "Lihat dokumen",
+    },
+    {
+      judul: "Aset tercatat",
+      nilai: String(aset.total),
+      href: "/portal/aset",
+      ket:
+        aset.lewat + aset.segera > 0
+          ? `${aset.lewat + aset.segera} perlu perawatan`
+          : "Lihat daftar aset",
     },
   ];
 
@@ -141,7 +173,7 @@ export function BerandaContent({
       </section>
 
       {/* ---------- angka ringkas, bisa diklik ---------- */}
-      <section className="grid gap-3 sm:grid-cols-3">
+      <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         {kartu.map((k) => (
           <Link
             key={k.judul}

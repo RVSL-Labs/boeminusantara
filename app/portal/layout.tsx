@@ -15,6 +15,7 @@ const MENU = [
   { href: "/portal/transaksi", label: "Transaksi" },
   { href: "/portal/dokumen", label: "Dokumen" },
   { href: "/portal/pengiriman", label: "Pengiriman" },
+  { href: "/portal/aset", label: "Aset & Perawatan" },
   { href: "/portal/profil", label: "Profil Instansi" },
   { href: "/", label: "Katalog" },
 ];
