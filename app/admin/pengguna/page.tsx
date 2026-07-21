@@ -1,13 +1,18 @@
+import { redirect } from "next/navigation";
 import { listAdminPeople } from "@/lib/admin/staff";
-import { checkAdmin } from "@/lib/admin/auth";
+import { checkAdmin, isOwnerEmail } from "@/lib/admin/auth";
 import { StaffForm } from "./_components/StaffForm";
 import { addStaffAction, removeStaffAction } from "./actions";
 
 export const metadata = { title: "Pengguna Admin" };
 
 export default async function AdminUsersPage() {
-  const [people, gate] = await Promise.all([listAdminPeople(), checkAdmin()]);
-  const myEmail = gate.ok ? gate.email.toLowerCase() : "";
+  // Kelola admin = kuasa pemilik. Staf yang menebak alamat ini dilempar keluar.
+  const gate = await checkAdmin();
+  if (!gate.ok || !isOwnerEmail(gate.email)) redirect("/admin");
+
+  const people = await listAdminPeople();
+  const myEmail = gate.email.toLowerCase();
 
   return (
     <div className="space-y-8">
