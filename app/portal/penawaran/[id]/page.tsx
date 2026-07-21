@@ -10,6 +10,8 @@ import { listDocumentsForRequest } from "@/lib/admin/documents";
 import { PerjalananPengadaan, tahapSekarang } from "@/components/PerjalananPengadaan";
 import { tandaiDiterimaAction } from "../terima-actions";
 import { portalNegotiateAction } from "../actions";
+import { getMyRating, listMyComplaints } from "@/lib/complaints";
+import { UlasanPanel } from "./UlasanPanel";
 
 export const metadata = { title: "Rincian Penawaran" };
 
@@ -26,11 +28,13 @@ export default async function PortalQuoteDetail({
   const quote = await getMyQuote(user, id);
   if (!quote) notFound();
 
-  const [offers, lampiran, pengiriman, dokumen] = await Promise.all([
+  const [offers, lampiran, pengiriman, dokumen, rating, komplain] = await Promise.all([
     listOffers(id),
     listLampiran(id),
     getPengiriman(id),
     listDocumentsForRequest(id),
+    getMyRating(id),
+    listMyComplaints(id),
   ]);
 
   const jenisDok = new Set(dokumen.filter((d) => !d.voidedAt).map((d) => d.docType));
@@ -154,6 +158,16 @@ export default async function PortalQuoteDetail({
         selesai={selesai}
         giliranBoemi={giliranBoemi}
       />
+
+      {/* Ulasan & keluhan — muncul setelah Surat Pesanan terbit (transaksi berjalan) */}
+      {jenisDok.has("SP") && (
+        <section>
+          <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-[var(--color-mute)]">
+            Ulasan &amp; Keluhan
+          </h2>
+          <UlasanPanel requestId={id} rating={rating} complaints={komplain} />
+        </section>
+      )}
     </div>
   );
 }
