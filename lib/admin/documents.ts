@@ -20,6 +20,8 @@ export type DocItem = {
   satuan: string;
   hargaSatuan: number;
   total: number;
+  /** Spesifikasi barang (dari deskripsi produk), dibekukan untuk Lampiran PDN. */
+  spesifikasi?: string;
 };
 
 export type DocSnapshot = {
@@ -156,12 +158,34 @@ export async function issueSuratPesanan(params: {
     if (bp) pembeliProfil = bp as Record<string, string | number | null>;
   }
 
+  // Spesifikasi tiap barang = deskripsi produk, dibekukan bersama surat supaya
+  // Lampiran PDN tetap sama walau produk diedit belakangan.
+  const { data: reqItemRows } = await sb
+    .from("quote_request_items")
+    .select("id, product_id")
+    .eq("request_id", req.id);
+  const rows = (reqItemRows ?? []) as { id: string; product_id: string | null }[];
+  const prodIds = [...new Set(rows.map((r) => r.product_id).filter(Boolean))] as string[];
+  const specByProduct = new Map<string, string>();
+  if (prodIds.length) {
+    const { data: prods } = await sb
+      .from("products")
+      .select("id, description")
+      .in("id", prodIds);
+    for (const p of (prods ?? []) as { id: string; description: string | null }[])
+      specByProduct.set(p.id, p.description ?? "");
+  }
+  const specByReqItem = new Map<string, string>();
+  for (const r of rows)
+    specByReqItem.set(r.id, (r.product_id && specByProduct.get(r.product_id)) || "");
+
   const items: DocItem[] = berlaku.items.map((i) => ({
     nama: i.name,
     qty: i.qty,
     satuan: "Unit",
     hargaSatuan: i.unitPrice,
     total: i.subtotal,
+    spesifikasi: specByReqItem.get(i.requestItemId) || undefined,
   }));
 
   const subtotal = items.reduce((s, i) => s + i.total, 0);
