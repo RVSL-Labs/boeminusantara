@@ -1,7 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
-import { notFound } from "next/navigation";
+import { redirect } from "next/navigation";
 import { getQuotationByRequest } from "@/lib/admin/quotes";
+import { listDocumentsForRequest } from "@/lib/admin/documents";
 import { formatIDR } from "@/lib/format";
 import { PrintButton } from "../../_components/PrintButton";
 
@@ -33,7 +34,16 @@ export default async function SuratPage({
 }) {
   const { id } = await params;
   const q = await getQuotationByRequest(id);
-  if (!q) notFound();
+
+  // Jalur lama: surat = tabel `quotations`. Alur sekarang memakai DOKUMEN
+  // (Surat Pesanan/SP). Kalau tidak ada quotation, arahkan ke dokumen SP bila
+  // ada, jika tidak kembali ke rincian penawaran — jangan biarkan 404.
+  if (!q) {
+    const dokumen = await listDocumentsForRequest(id);
+    const sp = dokumen.find((d) => d.docType === "SP" && !d.voidedAt);
+    if (sp) redirect(`/dokumen/${sp.id}`);
+    redirect(`/admin/penawaran/${id}`);
+  }
 
   const req = q.quote_requests;
   const items = req?.quote_request_items ?? [];

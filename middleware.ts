@@ -21,6 +21,7 @@ function internalGate(request: NextRequest): NextResponse | null {
   const p = request.nextUrl.pathname;
   const boleh =
     p.startsWith("/admin") ||
+    p.startsWith("/dokumen") || // cetak surat/BAST — punya pagar akses sendiri
     p.startsWith("/masuk") ||
     p.startsWith("/auth") ||
     p.startsWith("/atur-sandi") ||

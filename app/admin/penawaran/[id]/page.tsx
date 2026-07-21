@@ -44,6 +44,9 @@ export default async function QuoteDetailPage({
     listLampiran(id),
     getPengiriman(id),
   ]);
+  // Surat Pesanan (SP) di jalur dokumen baru — dipakai untuk tautan "Lihat surat".
+  const suratPesanan = dokumen.find((d) => d.docType === "SP" && !d.voidedAt) ?? null;
+
   const berlaku = hargaBerlaku(offers);
   const selesai = negosiasiSelesai(offers);
 
@@ -87,12 +90,14 @@ export default async function QuoteDetailPage({
           <span className="text-[var(--color-ink-soft)]">
             Surat penawaran sudah diterbitkan untuk permintaan ini.
           </span>
-          <Link
-            href={`/admin/penawaran/${id}/surat`}
-            className="shrink-0 font-medium text-[var(--color-navy)] hover:underline"
-          >
-            Lihat / Cetak Surat →
-          </Link>
+          {suratPesanan && (
+            <Link
+              href={`/dokumen/${suratPesanan.id}`}
+              className="shrink-0 font-medium text-[var(--color-navy)] hover:underline"
+            >
+              Lihat / Cetak Surat →
+            </Link>
+          )}
         </div>
       )}
 
