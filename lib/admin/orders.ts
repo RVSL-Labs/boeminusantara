@@ -13,6 +13,56 @@ export type OrderSummary = {
   itemCount: number;
 };
 
+/**
+ * Pesanan PENGADAAN: permintaan penawaran yang sudah terbit Surat Pesanan (SP).
+ * Begitu SP terbit, penawaran itu efektif menjadi pesanan resmi — tapi ia hidup
+ * di jalur Penawaran, bukan tabel `orders` (yang khusus checkout online). Fungsi
+ * ini menariknya supaya keduanya tampil di satu tempat.
+ */
+export async function listProcurementOrders(limit = 100): Promise<
+  (OrderSummary & { requestId: string; jenis: "pengadaan" })[]
+> {
+  const sb = getAdminSupabase();
+  if (!sb) return [];
+
+  const { data, error } = await sb
+    .from("documents")
+    .select("request_id, number, issued_at, snapshot")
+    .eq("doc_type", "SP")
+    .is("voided_at", null)
+    .order("issued_at", { ascending: false })
+    .limit(limit);
+
+  if (error || !data) return [];
+
+  return (
+    data as {
+      request_id: string | null;
+      number: string;
+      issued_at: string;
+      snapshot: {
+        total?: number;
+        kodePermintaan?: string;
+        items?: unknown[];
+        pembeli?: { instansi?: string; pejabat?: string };
+      };
+    }[]
+  )
+    .filter((d) => d.request_id)
+    .map((d) => ({
+      id: d.request_id as string,
+      requestId: d.request_id as string,
+      code: d.snapshot?.kodePermintaan || d.number,
+      status: "diproses",
+      total: d.snapshot?.total ?? 0,
+      createdAt: d.issued_at,
+      buyerName: d.snapshot?.pembeli?.pejabat || "—",
+      buyerInstitution: d.snapshot?.pembeli?.instansi ?? null,
+      itemCount: d.snapshot?.items?.length ?? 0,
+      jenis: "pengadaan" as const,
+    }));
+}
+
 export async function listOrders(limit = 100): Promise<OrderSummary[]> {
   const sb = getAdminSupabase();
   if (!sb) return [];

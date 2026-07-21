@@ -300,7 +300,23 @@ export async function getDocument(id: string): Promise<StoredDocument | null> {
   };
 }
 
-/** Dokumen milik satu permintaan penawaran. */
+/**
+ * Urutan dokumen mengikuti alur pengadaan, dari awal ke akhir:
+ * Negosiasi → Surat Pesanan → Pernyataan PDN → Invoice → Surat Jalan → BAST → Kwitansi.
+ * Dipakai di panel admin dan portal supaya daftar dokumen selalu runtut, bukan
+ * acak berdasarkan kapan diterbitkan.
+ */
+export const URUTAN_DOKUMEN: Record<DocType, number> = {
+  NEG: 1,
+  SP: 2,
+  PDN: 3,
+  INV: 4,
+  SJ: 5,
+  BAST: 6,
+  KW: 7,
+};
+
+/** Dokumen milik satu permintaan penawaran, terurut sesuai alur pengadaan. */
 export async function listDocumentsForRequest(requestId: string): Promise<StoredDocument[]> {
   const sb = getAdminSupabase();
   if (!sb) return [];
@@ -308,21 +324,25 @@ export async function listDocumentsForRequest(requestId: string): Promise<Stored
   const { data, error } = await sb
     .from("documents")
     .select("*")
-    .eq("request_id", requestId)
-    .order("issued_at", { ascending: false });
+    .eq("request_id", requestId);
 
   if (error || !data) return [];
 
-  return (data as Record<string, unknown>[]).map((r) => ({
-    id: String(r.id),
-    docType: r.doc_type as DocType,
-    number: String(r.number),
-    requestId: r.request_id ? String(r.request_id) : null,
-    issuedBy: r.issued_by ? String(r.issued_by) : null,
-    issuedAt: String(r.issued_at),
-    voidedAt: r.voided_at ? String(r.voided_at) : null,
-    snapshot: r.snapshot as DocSnapshot,
-  }));
+  return (data as Record<string, unknown>[])
+    .map((r) => ({
+      id: String(r.id),
+      docType: r.doc_type as DocType,
+      number: String(r.number),
+      requestId: r.request_id ? String(r.request_id) : null,
+      issuedBy: r.issued_by ? String(r.issued_by) : null,
+      issuedAt: String(r.issued_at),
+      voidedAt: r.voided_at ? String(r.voided_at) : null,
+      snapshot: r.snapshot as DocSnapshot,
+    }))
+    .sort(
+      (a, b) =>
+        (URUTAN_DOKUMEN[a.docType] ?? 99) - (URUTAN_DOKUMEN[b.docType] ?? 99),
+    );
 }
 
 /* ================= DOKUMEN LANJUTAN ================= */
