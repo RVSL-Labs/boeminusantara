@@ -19,8 +19,9 @@ const NAV: NavItem[] = [
   { href: "/admin/perusahaan", label: "Identitas Perusahaan" },
   { href: "/admin/panduan", label: "Panduan" },
   { href: "/admin/pengaturan", label: "Pengaturan" },
-  // Hanya tampil untuk pemilik. Aksesnya tetap dijaga server-side di halamannya.
-  { href: "/admin/pemilik", label: "🔒 Ruang Pemilik", owner: true },
+  // Ruang Pemilik SENGAJA tidak ada di menu — pintu tak terlihat, dibuka lewat
+  // alamat langsung /admin/pemilik. Gerbangnya tetap dijaga server-side, jadi
+  // hanya pemilik yang bisa masuk walau alamatnya ditebak.
 ];
 
 export function AdminSidebar({ isOwner = false }: { isOwner?: boolean }) {
