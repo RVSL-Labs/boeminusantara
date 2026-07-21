@@ -17,6 +17,11 @@ create table if not exists company_profile (
   penandatangan text not null default '',   -- nama yang tercetak di blok tanda tangan
   jabatan       text not null default '',
   kode_surat    text not null default 'BNKB', -- dipakai di nomor surat
+  bank_name     text not null default '',    -- rekening pembayaran (tercetak di invoice/kwitansi)
+  bank_account  text not null default '',
+  bank_holder   text not null default '',
+  pdn_statement text not null default '',    -- redaksi Pernyataan PDN Non-TKDN
+  term_days     integer not null default 14, -- jatuh tempo default (hari)
   updated_at    timestamptz not null default now()
 );
 
