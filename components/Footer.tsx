@@ -45,10 +45,10 @@ export default function Footer() {
             </p>
             <p className="mt-1">
               <a
-                href="mailto:cs@boeminusantara.com"
+                href="mailto:info@boeminusantara.com"
                 className="text-[var(--color-navy)] hover:underline"
               >
-                cs@boeminusantara.com
+                info@boeminusantara.com
               </a>
             </p>
           </div>

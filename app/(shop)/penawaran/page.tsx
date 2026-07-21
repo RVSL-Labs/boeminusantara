@@ -92,7 +92,7 @@ export default function PenawaranPage() {
         status: "error",
         message:
           err instanceof Error
-            ? `Gagal mengirim permintaan. ${err.message}. Silakan coba lagi atau hubungi cs@boeminusantara.com.`
+            ? `Gagal mengirim permintaan. ${err.message}. Silakan coba lagi atau hubungi info@boeminusantara.com.`
             : "Gagal mengirim permintaan. Silakan coba lagi.",
       });
     }

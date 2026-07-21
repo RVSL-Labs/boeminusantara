@@ -93,8 +93,8 @@ export default async function OrderStatusPage({
 
       <p className="mt-6 text-xs text-mute">
         Simpan halaman ini untuk memantau pesanan. Pertanyaan?{" "}
-        <a href="mailto:cs@boeminusantara.com" className="text-navy hover:underline">
-          cs@boeminusantara.com
+        <a href="mailto:info@boeminusantara.com" className="text-navy hover:underline">
+          info@boeminusantara.com
         </a>
       </p>
 

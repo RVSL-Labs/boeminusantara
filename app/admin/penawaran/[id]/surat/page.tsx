@@ -10,7 +10,7 @@ export const metadata = { title: "Surat Penawaran" };
 const COMPANY = {
   name: "PT. Boemi Nusantara Kaya Berkah",
   address: "Jl. Hasyim Ashari No. 34 C-D, Cipondoh, Tangerang",
-  contact: "Telp/Fax (021) 55717126 · cs@boeminusantara.com",
+  contact: "Telp/Fax (021) 55717126 · info@boeminusantara.com",
 };
 
 function formatDateLong(iso: string | null): string {

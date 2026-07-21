@@ -180,10 +180,10 @@ export default async function TentangPage() {
             </dt>
             <dd className="mt-1.5 text-sm text-ink">
               <a
-                href="mailto:cs@boeminusantara.com"
+                href="mailto:info@boeminusantara.com"
                 className="font-medium text-navy hover:underline"
               >
-                cs@boeminusantara.com
+                info@boeminusantara.com
               </a>
             </dd>
           </div>

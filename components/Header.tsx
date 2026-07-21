@@ -20,8 +20,8 @@ export default function Header() {
               (021) 55717126
             </a>
             <span aria-hidden>·</span>
-            <a href="mailto:cs@boeminusantara.com" className="hover:underline">
-              cs@boeminusantara.com
+            <a href="mailto:info@boeminusantara.com" className="hover:underline">
+              info@boeminusantara.com
             </a>
           </span>
         </div>

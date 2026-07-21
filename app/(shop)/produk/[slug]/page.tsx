@@ -136,7 +136,7 @@ export default async function ProductPage({
               ? "Bisa dibeli langsung dan dibayar online, atau minta surat penawaran resmi kalau pembelian atas nama instansi (PO/kontrak)."
               : "Alat ini dibeli lewat penawaran resmi: tambahkan ke penawaran, tim kami membalas dengan surat penawaran ber-PPN untuk dasar PO instansi."}{" "}
             <a
-              href={`mailto:cs@boeminusantara.com?subject=${encodeURIComponent(
+              href={`mailto:info@boeminusantara.com?subject=${encodeURIComponent(
                 `Permintaan Penawaran — ${product.name}`,
               )}`}
               className="underline underline-offset-2 hover:text-[var(--color-navy)]"
