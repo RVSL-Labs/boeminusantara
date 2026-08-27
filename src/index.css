@@ -1,3 +1,6 @@
+/* ── Google Fonts ── */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,76 +9,127 @@
   html {
     scroll-behavior: smooth;
     font-family: 'Plus Jakarta Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-ink-50 text-ink-900;
   }
 }
 
-/* Custom Scrollbars */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
+/* ── Custom Scrollbars ── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 6px; }
+::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
 
-::-webkit-scrollbar-track {
-  background: #f1f5f9;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
-}
-
-/* Animations */
+/* ── Animations ── */
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.98);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+  from { opacity: 0; transform: scale(0.98) translateY(4px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
 }
 
 @keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-.animate-fadeIn {
-  animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+@keyframes shimmer {
+  0%   { background-position: 200% center; }
+  100% { background-position: -200% center; }
 }
 
-.animate-slideUp {
-  animation: slideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: scale(1); }
 }
 
-/* Print Styling for Official RAB Documents */
+.animate-fadeIn  { animation: fadeIn  0.25s cubic-bezier(0.16,1,0.3,1) forwards; }
+.animate-slideUp { animation: slideUp 0.28s cubic-bezier(0.16,1,0.3,1) forwards; }
+.animate-scaleIn { animation: scaleIn 0.22s cubic-bezier(0.16,1,0.3,1) forwards; }
+
+/* Stagger children entrance */
+.stagger > *:nth-child(1) { animation-delay: 0ms; }
+.stagger > *:nth-child(2) { animation-delay: 60ms; }
+.stagger > *:nth-child(3) { animation-delay: 120ms; }
+.stagger > *:nth-child(4) { animation-delay: 180ms; }
+.stagger > *:nth-child(5) { animation-delay: 240ms; }
+
+/* ── Professional Card ── */
+.pro-card {
+  @apply bg-white border border-ink-200/70 rounded-2xl shadow-card transition-all duration-300;
+}
+.pro-card:hover {
+  @apply shadow-card-hover border-ink-300/80 -translate-y-0.5;
+}
+
+/* ── Navy Gradient Button ── */
+.btn-navy {
+  @apply inline-flex items-center justify-center gap-2 bg-navy-800 hover:bg-navy-900 text-white font-bold rounded-xl transition-all duration-200 shadow-navy;
+}
+.btn-navy:hover { transform: translateY(-1px); }
+.btn-navy:active { transform: translateY(0) scale(0.98); }
+
+/* ── Steel Blue Button ── */
+.btn-steel {
+  @apply inline-flex items-center justify-center gap-2 bg-steel-500 hover:bg-steel-600 text-white font-semibold rounded-xl transition-all duration-200;
+}
+
+/* ── Crimson Button ── */
+.btn-crimson {
+  @apply inline-flex items-center justify-center gap-2 bg-crimson-500 hover:bg-crimson-600 text-white font-semibold rounded-xl transition-all duration-200;
+}
+
+/* ── Ghost Button ── */
+.btn-ghost {
+  @apply inline-flex items-center justify-center gap-2 bg-ink-100 hover:bg-ink-200 text-ink-700 font-semibold rounded-xl transition-all duration-200 border border-ink-200;
+}
+
+/* ── Input Focus Ring ── */
+input:focus, select:focus, textarea:focus {
+  outline: none !important;
+  border-color: rgb(37 99 235 / 0.5) !important;
+  box-shadow: 0 0 0 3px rgb(37 99 235 / 0.12) !important;
+}
+
+/* ── Table Utilities ── */
+.pro-table { @apply w-full border-collapse; }
+.pro-table thead th {
+  @apply px-4 py-3 text-left text-[10px] font-mono font-semibold uppercase tracking-widest text-ink-500 border-b border-ink-200 bg-ink-50 whitespace-nowrap select-none;
+}
+.pro-table tbody tr {
+  @apply border-b border-ink-100 transition-colors duration-150;
+}
+.pro-table tbody tr:nth-child(even) { @apply bg-ink-50/50; }
+.pro-table tbody tr:hover { @apply bg-steel-50; }
+.pro-table tbody td { @apply px-4 py-3 text-sm text-ink-800; }
+.pro-table tbody tr:last-child { @apply border-b-0; }
+
+/* ── Badge Utilities ── */
+.badge-navy    { @apply inline-flex items-center gap-1 px-2.5 py-0.5 bg-navy-100 text-navy-800 rounded-full text-[11px] font-semibold; }
+.badge-steel   { @apply inline-flex items-center gap-1 px-2.5 py-0.5 bg-steel-100 text-steel-700 rounded-full text-[11px] font-semibold; }
+.badge-crimson { @apply inline-flex items-center gap-1 px-2.5 py-0.5 bg-crimson-100 text-crimson-700 rounded-full text-[11px] font-semibold; }
+.badge-grey    { @apply inline-flex items-center gap-1 px-2.5 py-0.5 bg-ink-100 text-ink-600 rounded-full text-[11px] font-semibold; }
+.badge-success { @apply inline-flex items-center gap-1 px-2.5 py-0.5 bg-emerald-100 text-emerald-700 rounded-full text-[11px] font-semibold; }
+
+/* ── Shimmer gradient text ── */
+.text-gradient-pro {
+  background: linear-gradient(135deg, #1E4A8A 0%, #2563EB 40%, #C41E3A 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 4s linear infinite;
+}
+
+/* ── Print ── */
 @media print {
-  body * {
-    visibility: hidden;
-  }
-  
-  .print\:m-0, .print\:m-0 * {
-    visibility: visible;
-  }
-  
+  body * { visibility: hidden; }
+  .print\:m-0, .print\:m-0 * { visibility: visible; }
   .print\:m-0 {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    margin: 0 !important;
-    padding: 20px !important;
-    border: none !important;
+    position: absolute; left: 0; top: 0;
+    width: 100%; margin: 0 !important; padding: 20px !important; border: none !important;
   }
 }

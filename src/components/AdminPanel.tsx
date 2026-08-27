@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
 import { Product, JurusanKey } from '../types';
+import { parseProductExcel, ParseExcelResult } from '../utils/excelParser';
 import { 
   X, 
   Plus, 
@@ -17,7 +18,12 @@ import {
   ExternalLink,
   Phone,
   Mail,
-  Building2
+  Building2,
+  Upload,
+  FileSpreadsheet,
+  Download,
+  AlertCircle,
+  Check
 } from 'lucide-react';
 
 export const AdminPanel: React.FC = () => {
@@ -37,7 +43,7 @@ export const AdminPanel: React.FC = () => {
   } = useApp();
 
   const [passwordInput, setPasswordInput] = useState('');
-  const [activeTab, setActiveTab] = useState<'products' | 'inquiries' | 'quotations' | 'supabase'>('inquiries');
+  const [activeTab, setActiveTab] = useState<'products' | 'inquiries' | 'quotations' | 'supabase' | 'bulk-upload'>('inquiries');
 
   // New Product Form State
   const [isAddingProduct, setIsAddingProduct] = useState(false);
@@ -49,6 +55,11 @@ export const AdminPanel: React.FC = () => {
   const [newProdPrice, setNewProdPrice] = useState(15000000);
   const [newProdUnit, setNewProdUnit] = useState('Unit');
   const [newProdImageUrl, setNewProdImageUrl] = useState('https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=800&auto=format&fit=crop&q=80');
+
+  // Bulk Excel Upload State
+  const [isParsingExcel, setIsParsingExcel] = useState(false);
+  const [excelResult, setExcelResult] = useState<ParseExcelResult | null>(null);
+  const [dragActive, setDragActive] = useState(false);
 
   if (!isAdminModalOpen) return null;
 
@@ -97,6 +108,36 @@ export const AdminPanel: React.FC = () => {
       currency: 'IDR',
       maximumFractionDigits: 0
     }).format(val);
+  };
+
+  const handleExcelFileUpload = async (file: File) => {
+    if (!file) return;
+    setIsParsingExcel(true);
+    try {
+      const res = await parseProductExcel(file);
+      setExcelResult(res);
+      if (res.products.length > 0) {
+        showToast(`Berhasil membaca ${res.products.length} produk dari file ${file.name}`, 'success');
+      } else {
+        showToast('Tidak ada data produk yang terdeteksi pada file tersebut', 'error');
+      }
+    } catch (err) {
+      showToast('Gagal memproses file Excel', 'error');
+    } finally {
+      setIsParsingExcel(false);
+    }
+  };
+
+  const handleCommitBulkImport = () => {
+    if (!excelResult || excelResult.products.length === 0) return;
+    
+    excelResult.products.forEach(p => {
+      addProduct(p);
+    });
+
+    showToast(`Sukses mengunggah ${excelResult.products.length} produk massal ke katalog!`, 'success');
+    setExcelResult(null);
+    setActiveTab('products');
   };
 
   return (
@@ -205,6 +246,18 @@ export const AdminPanel: React.FC = () => {
                 >
                   <Package className="w-4 h-4" />
                   <span>Kelola Katalog Alat ({products.length})</span>
+                </button>
+
+                <button
+                  onClick={() => setActiveTab('bulk-upload')}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-xl font-bold transition ${
+                    activeTab === 'bulk-upload'
+                      ? 'bg-emerald-700 text-white shadow-sm'
+                      : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                  }`}
+                >
+                  <FileSpreadsheet className="w-4 h-4 text-emerald-400" />
+                  <span>Upload Massal (.xlsx)</span>
                 </button>
 
                 <button
@@ -517,7 +570,149 @@ export const AdminPanel: React.FC = () => {
                 </div>
               )}
 
-              {/* TAB 4: SUPABASE SERVERLESS CONFIG */}
+              {/* TAB 4: BULK EXCEL UPLOAD */}
+              {activeTab === 'bulk-upload' && (
+                <div className="space-y-6">
+                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 bg-gradient-to-r from-emerald-900 to-slate-900 text-white p-5 rounded-2xl">
+                    <div>
+                      <h3 className="font-extrabold text-base flex items-center gap-2">
+                        <FileSpreadsheet className="w-5 h-5 text-emerald-400" />
+                        <span>Upload Massal Katalog Produk (Excel / CSV)</span>
+                      </h3>
+                      <p className="text-xs text-slate-300 mt-1">
+                        Dukungan otomatis format **Price List Brand (Daiden, 3M, dll)** & **Rekap Vokasi SMK (TKR, TITL, TOI, TAV, TSM, Pemesinan)**.
+                      </p>
+                    </div>
+
+                    <a
+                      href="#"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        alert('Format Excel yang didukung:\n1. Price List Brand: Column [No, Part Number, Nama Barang, Type, Spesifikasi, RRP/Harga]\n2. Rekap SMK: Column [No, Nama Barang, Dimensi, Spesifikasi Ditawarkan, Merk, Jenis Produk, Harga]');
+                      }}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-700 hover:bg-emerald-600 rounded-xl text-xs font-bold transition text-white"
+                    >
+                      <Download className="w-4 h-4" />
+                      <span>Info Format Column</span>
+                    </a>
+                  </div>
+
+                  {/* Dropzone Upload Box */}
+                  <div
+                    onDragOver={(e) => {
+                      e.preventDefault();
+                      setDragActive(true);
+                    }}
+                    onDragLeave={() => setDragActive(false)}
+                    onDrop={(e) => {
+                      e.preventDefault();
+                      setDragActive(false);
+                      if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+                        handleExcelFileUpload(e.dataTransfer.files[0]);
+                      }
+                    }}
+                    className={`border-2 border-dashed rounded-3xl p-8 text-center transition flex flex-col items-center justify-center cursor-pointer ${
+                      dragActive ? 'border-emerald-500 bg-emerald-50' : 'border-slate-300 bg-slate-50 hover:bg-slate-100/80 hover:border-slate-400'
+                    }`}
+                  >
+                    <input
+                      type="file"
+                      accept=".xlsx, .xls, .csv"
+                      id="excel-file-input"
+                      className="hidden"
+                      onChange={(e) => {
+                        if (e.target.files && e.target.files[0]) {
+                          handleExcelFileUpload(e.target.files[0]);
+                        }
+                      }}
+                    />
+                    <label htmlFor="excel-file-input" className="cursor-pointer flex flex-col items-center">
+                      <div className="w-16 h-16 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center mb-3 shadow-inner">
+                        <Upload className="w-8 h-8" />
+                      </div>
+                      <h4 className="font-extrabold text-slate-800 text-sm mb-1">
+                        {isParsingExcel ? 'Membaca & Memproses File Excel...' : 'Tarik & Lepas File Excel (.xlsx / .csv) di Sini'}
+                      </h4>
+                      <p className="text-xs text-slate-500 max-w-md">
+                        atau klik tombol ini untuk memilih file dari komputer Anda (Contoh: <span className="font-semibold text-slate-700">Price List Daiden.xlsx</span>)
+                      </p>
+                    </label>
+                  </div>
+
+                  {/* Excel Preview Results */}
+                  {excelResult && (
+                    <div className="p-5 bg-white border border-slate-200 rounded-2xl space-y-4 shadow-sm animate-fadeIn">
+                      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 pb-4">
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <CheckCircle2 className="w-5 h-5 text-emerald-600" />
+                            <h4 className="font-extrabold text-slate-900 text-sm">
+                              Pratinjau Hasil Impor: {excelResult.fileName}
+                            </h4>
+                          </div>
+                          <p className="text-xs text-slate-500 mt-0.5">
+                            Terdeteksi <span className="font-bold text-emerald-700">{excelResult.products.length} produk siap diimpor</span> dari total {excelResult.totalRowsProcessed} baris.
+                          </p>
+                        </div>
+
+                        <div className="flex items-center gap-2">
+                          <button
+                            onClick={() => setExcelResult(null)}
+                            className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl transition"
+                          >
+                            Batal / Clear
+                          </button>
+                          <button
+                            onClick={handleCommitBulkImport}
+                            className="px-5 py-2 bg-emerald-700 hover:bg-emerald-800 text-white font-bold rounded-xl shadow-md transition flex items-center gap-2"
+                          >
+                            <Check className="w-4 h-4" />
+                            <span>Impor {excelResult.products.length} Produk ke Katalog</span>
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Error Warnings if any */}
+                      {excelResult.errors.length > 0 && (
+                        <div className="p-3 bg-amber-50 border border-amber-200 rounded-xl text-amber-800 text-xs flex items-center gap-2">
+                          <AlertCircle className="w-4 h-4 flex-shrink-0" />
+                          <span>{excelResult.errors.join(', ')}</span>
+                        </div>
+                      )}
+
+                      {/* Table Preview */}
+                      <div className="max-h-80 overflow-y-auto border border-slate-200 rounded-xl">
+                        <table className="w-full text-left text-xs">
+                          <thead className="bg-slate-100 text-slate-700 font-bold sticky top-0">
+                            <tr>
+                              <th className="p-2.5">No</th>
+                              <th className="p-2.5">SKU</th>
+                              <th className="p-2.5">Nama Produk</th>
+                              <th className="p-2.5">Kategori / Jurusan</th>
+                              <th className="p-2.5 text-right">Harga Estimasi (RAB)</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {excelResult.products.map((p, idx) => (
+                              <tr key={p.id} className="border-t border-slate-200 hover:bg-slate-50">
+                                <td className="p-2.5 font-bold text-slate-500">{idx + 1}</td>
+                                <td className="p-2.5 font-mono font-bold text-slate-600">{p.sku}</td>
+                                <td className="p-2.5 font-bold text-slate-900">{p.name}</td>
+                                <td className="p-2.5 text-slate-600">{p.jurusan}</td>
+                                <td className="p-2.5 text-right font-semibold text-emerald-700">
+                                  {formatIDR(p.price_estimate)}
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* TAB 5: SUPABASE SERVERLESS CONFIG */}
               {activeTab === 'supabase' && (
                 <div className="p-6 bg-slate-50 border border-slate-200 rounded-2xl space-y-5">
                   <div className="flex items-center gap-3">
