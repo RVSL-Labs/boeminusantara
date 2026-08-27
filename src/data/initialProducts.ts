@@ -1637,7 +1637,7 @@ export const INITIAL_INQUIRIES: any[] = [
     budget_range: 'Di atas Rp 100 Juta',
     status: 'new',
     created_at: '2026-08-12T09:45:00Z'
-  }
+  },
 
   {
     id: 'daiden-8',
